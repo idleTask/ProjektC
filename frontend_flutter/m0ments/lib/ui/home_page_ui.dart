@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:m0ments/src/card_data.dart';
 
 //Variablen
 final Color _appBarTextColor = Colors.red[300];
@@ -6,15 +7,18 @@ final Color _appBarBackgroundColor = Colors.blueGrey[800];
 final Color _containerColor = Colors.blueGrey[900];
 
 //Methode um Text universelll schwarz zu machen
-Text coloredText(String text){
-  return Text(text, style: TextStyle(color: _appBarTextColor),);
+Text coloredText(String text) {
+  return Text(
+    text,
+    style: TextStyle(color: _appBarTextColor),
+  );
 }
 
 //HomePageUi widget für home_page.dart
 class HomePageUi extends StatelessWidget {
   //Variablen
   final String title;
-  
+
   //Konstruktor
   const HomePageUi({
     this.title,
@@ -22,9 +26,8 @@ class HomePageUi extends StatelessWidget {
 
   //Build Funktion
   Widget build(BuildContext context) {
-
     //Der Drawer
-    final _drawer_ui = Drawer(
+    final _drawerUi = Drawer(
       child: Container(
         color: _appBarBackgroundColor,
         child: ListView(
@@ -34,8 +37,8 @@ class HomePageUi extends StatelessWidget {
               child: DrawerHeader(
                 child: coloredText('Custom Header'),
                 decoration: BoxDecoration(
-                  //color: Colors.blue,
-                ),
+                    //color: Colors.blue,
+                    ),
               ),
             ),
             ListTile(
@@ -55,6 +58,7 @@ class HomePageUi extends StatelessWidget {
       ),
     );
 
+    //AppBar des HomeScreens
     final _appBar = AppBar(
       title: Text(
         title,
@@ -78,8 +82,9 @@ class HomePageUi extends StatelessWidget {
     );
 
     return Scaffold(
-      drawer: _drawer_ui,
+      drawer: _drawerUi,
       appBar: _appBar,
+      body: CardData(),
     );
   }
 }
