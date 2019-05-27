@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:m0ments/src/ui/interfaceData.dart';
 
-
-
-class AppBarUi extends StatelessWidget implements PreferredSizeWidget{
+class AppBarUi extends StatelessWidget implements PreferredSizeWidget {
   final InterfaceData _interfaceData = new InterfaceData();
   @override
-     Size get preferredSize => new Size.fromHeight(kToolbarHeight);
-  
+  Size get preferredSize => new Size.fromHeight(kToolbarHeight);
+
   final String title;
 
   AppBarUi({
-    @required
-    this.title,
+    @required this.title,
   });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return AppBar(
       title: Text(
         title,
@@ -38,7 +35,5 @@ class AppBarUi extends StatelessWidget implements PreferredSizeWidget{
         },
       ),
     );
-
-    
   }
 }

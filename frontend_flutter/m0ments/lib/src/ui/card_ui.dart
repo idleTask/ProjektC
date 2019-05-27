@@ -33,11 +33,11 @@ class CardUi extends StatelessWidget {
 
     //build the sized box wrapped with a gesturedetector
     var gestureDetector = new GestureDetector(
-      onTapUp: (TapUpDetails){
+      onTapUp: (TapUpDetails) {
         Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => DetailedPage()),
-      );
+          context,
+          MaterialPageRoute(builder: (context) => DetailedPage()),
+        );
       },
       child: sizedBox,
     );

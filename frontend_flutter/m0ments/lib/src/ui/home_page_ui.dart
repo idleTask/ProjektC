@@ -28,7 +28,7 @@ class HomePageUi extends StatelessWidget {
     final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
         new GlobalKey<RefreshIndicatorState>();
 
-    final _appBody = Container(
+    var _appBody = Container(
       child: RefreshIndicator(
           key: _refreshIndicatorKey,
           onRefresh: _refresh,
