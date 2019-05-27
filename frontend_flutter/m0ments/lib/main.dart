@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:m0ments/pages/home_page.dart';
+import 'package:m0ments/src/pages/home_page.dart';
 
 void main() => runApp(M0mentsApp());
 
