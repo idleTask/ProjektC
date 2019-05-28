@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:m0ments/src/ui/interfaceData.dart';
+import 'package:m0ments/src/resources/interfaceData.dart';
 
 class AppBarUi extends StatelessWidget implements PreferredSizeWidget {
   final InterfaceData _interfaceData = new InterfaceData();

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:m0ments/src/ui/detailedPage_ui.dart';
+import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
+import 'package:m0ments/src/pages/detailedPage.dart';
+import 'package:bloc/bloc.dart';
 
 class CardUi extends StatelessWidget {
+  final M0mentCardBloc bloc;
   final String img;
 
   const CardUi({
     this.img,
+    this.bloc,
   });
 
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class CardUi extends StatelessWidget {
 
     //build the sized box wrapped with a gesturedetector
     var gestureDetector = new GestureDetector(
-      onTapUp: (TapUpDetails) {
+      onTapUp: (tapUpDetails) {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => DetailedPage()),

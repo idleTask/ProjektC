@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:m0ments/src/ui/card_ui.dart';
-import 'package:m0ments/src/ui/interfaceData.dart';
+import 'package:m0ments/src/resources/interfaceData.dart';
 
 class DetailedPage extends StatefulWidget {
   DetailedPageState createState() => DetailedPageState();
@@ -10,9 +9,9 @@ class DetailedPageState extends State<DetailedPage> {
   static InterfaceData _interfaceData = new InterfaceData();
 
   Widget build(BuildContext context) {
-  String img = "lib/src/resources/images/surprised_pikatchu.png";
+    String img = "lib/src/resources/images/surprised_pikatchu.png";
 
-  var renderCard = new Card(
+    var renderCard = new Card(
       semanticContainer: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Image.asset(
@@ -26,8 +25,7 @@ class DetailedPageState extends State<DetailedPage> {
       margin: EdgeInsets.all(10),
     );
 
-  var renderMain = Scaffold(
-    appBar: AppBar(
+    var renderAppBar = AppBar(
       title: Text(
         "title",
         style: TextStyle(
@@ -47,12 +45,15 @@ class DetailedPageState extends State<DetailedPage> {
           );
         },
       ),
-    ),
-    body: Container(
-      child: renderCard,
-    ),
-  );
-    
+    );
+
+    var renderMain = Scaffold(
+      appBar: renderAppBar,
+      body: Container(
+        child: renderCard,
+      ),
+    );
+
     return renderMain;
   }
 }

@@ -1,30 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:m0ments/src/ui/card_ui.dart';
-import 'package:m0ments/src/ui/interfaceData.dart';
-import 'package:m0ments/src/ui/drawer_ui.dart';
+import 'package:bloc/bloc.dart';
+import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
+import 'package:m0ments/src/pages/addCardPage.dart';
 import 'package:m0ments/src/ui/appBar_ui.dart';
+import 'package:m0ments/src/ui/card_ui.dart';
+import 'package:m0ments/src/ui/drawer_ui.dart';
+import 'package:m0ments/src/resources/interfaceData.dart';
 
 //refresh Page with data
 Future<Null> _refresh() {
   return null;
 }
 
-//Variablen
-final InterfaceData _interfaceData = new InterfaceData();
+class HomePage extends StatefulWidget {
+  final String title = "m0ments";
+  const HomePage();
 
-//HomePageUi widget für home_page.dart
-class HomePageUi extends StatelessWidget {
-  //Variablen
-  final String title;
+  HomePageState createState() => HomePageState();
+}
 
-  //Konstruktor
-  const HomePageUi({
-    this.title,
-  });
-
-//Build Funktion
+class HomePageState extends State<HomePage> {
+  @override
   Widget build(BuildContext context) {
-//Refresh Indicator
+    InterfaceData _interfaceData = new InterfaceData();
+    List<M0mentCardBloc> cardBlocs;
+
+    //Refresh Indicator
     final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
         new GlobalKey<RefreshIndicatorState>();
 
@@ -45,11 +46,27 @@ class HomePageUi extends StatelessWidget {
           )),
     );
 
+    var floatingActionButton = Padding(
+      padding: EdgeInsets.all(8),
+      child: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddCardPage()),
+          );
+        },
+        child: Icon(Icons.add),
+        foregroundColor: _interfaceData.getAppBarTextColor(),
+        backgroundColor: _interfaceData.getAppBarBackgroundColor(),
+      ),
+    );
+
     return Scaffold(
       drawer: DrawerUi(),
       appBar: AppBarUi(
-        title: title,
+        title: widget.title,
       ),
+      floatingActionButton: floatingActionButton,
       body: _appBody,
     );
   }
