@@ -1,0 +1,157 @@
+
+body {
+	background-color: Lavender;
+}
+
+
+/* HOMEPAGE / MAINPARTS*/
+
+.sidebars {
+	background-color: mistyrose;
+	width: 15%;					/*breite */
+	height: 100%;				/*höhe */
+	position: fixed;
+	display:  inline-block;	
+	text-align: center;
+	font-size: 20px;
+}
+
+.navigation{ 
+	padding: 10px;
+	margin-left: 800px;
+	font-size: 20px;
+	word-spacing: 20px;
+	align-items: center;
+	justify-content: center;
+	
+}	
+
+
+.registerad{
+	margin-left: 800px;
+	
+	
+	
+}
+
+
+.mainsection {
+	
+	margin-top: 20px;
+	margin-left: 350px;
+	margin-right: 220px;
+}
+
+.othercolor {
+		background-color: mistyrose;
+		/*Margin-left: 700px;*/
+		
+}
+
+
+
+
+#searchbar {}
+#image {}
+
+
+/* REGISTRATION/LOGIN */
+
+.LoginFORM{
+	/*text-align: center;*/
+	margin-left: 350px;
+	display: inline-block;
+	
+}
+#rcorners1 {
+  border-radius: 25px;
+  background: #73AD21;
+  padding: 20px;
+  width: 200px;
+  height: 150px;
+}
+#registration, #login {
+	Margin: 20px;
+	opacity: 0.8;
+	padding: 30px;
+	border-radius: 35px;
+  background: #73AD21;
+}
+#button{
+	width: 300px;
+	margin-top:5px;
+	padding: 13px;
+	border-radius: 7px;
+}
+
+
+
+
+/* PROFILE */
+
+
+.profilesection {
+	margin-top: 40px;
+	Padding: 50px;
+	margin-left: 350px;
+	margin-right: 220px;
+	
+  border-radius: 25px;
+  background: #73AD21;
+  
+  
+
+	
+}
+#profileimages {
+	margin-top: 20px;
+	margin-right: 20px;
+	
+}
+#profilinfo{
+	margin: 10px;
+	display:  inline-block;
+	font-size: 40px;
+	}
+
+
+#smallbtn {
+	width: 60px;
+	height: 40px;
+	margin: 10px;
+	padding: 20px;
+	text-align: centered;
+}
+
+
+
+
+#userfavorits {}
+
+/* MOBILE */
+
+
+#versioninfo {
+	width: 50%;
+	height: 50%;
+	padding: 30px;
+	border-radius: 25px;
+	background: #73AD21;
+	text-align: center;
+}
+
+/* FAQ */
+#faq {
+	
+	
+}
+
+/* UPLOAD */
+
+#uploadform {
+	
+	
+}
+
+
+
