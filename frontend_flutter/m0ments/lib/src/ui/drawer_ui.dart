@@ -16,7 +16,7 @@ return Drawer(
         Container(
           color: _interfaceData.getContainerColor(),
           child: DrawerHeader(
-            child: _interfaceData.coloredText('Custom Header'),
+            child: _interfaceData.coloredText('Profile'),
             decoration: BoxDecoration(
                 //color: Colors.blue,
                 ),
@@ -24,15 +24,11 @@ return Drawer(
         ),
         ListTile(
           leading: Icon(Icons.photo),
-          title: _interfaceData.coloredText('First layout'),
+          title: _interfaceData.coloredText('My Posts'),
         ),
         ListTile(
-          title: _interfaceData.coloredText('Communicate'),
-          //without leading =)
-        ),
-        ListTile(
-          leading: Icon(Icons.share),
-          title: _interfaceData.coloredText('Share layout'),
+          leading: Icon(Icons.info),
+          title: _interfaceData.coloredText('Impressum'),
         )
       ],
     ),

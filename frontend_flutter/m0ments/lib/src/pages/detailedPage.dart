@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:m0ments/src/resources/interfaceData.dart';
+import 'package:m0ments/src/ui/textcard.dart';
 
 class DetailedPage extends StatefulWidget {
   DetailedPageState createState() => DetailedPageState();
@@ -7,6 +8,7 @@ class DetailedPage extends StatefulWidget {
 
 class DetailedPageState extends State<DetailedPage> {
   static InterfaceData _interfaceData = new InterfaceData();
+  int upvotes = 2;
 
   Widget build(BuildContext context) {
     String img = "lib/src/resources/images/surprised_pikatchu.png";
@@ -23,6 +25,31 @@ class DetailedPageState extends State<DetailedPage> {
       ),
       elevation: 5,
       margin: EdgeInsets.all(10),
+    );
+
+    var renderDescription = new TextCard(
+        "This is the test desribtion for the surprised pikatchu image. This is the test desribtion for the surprised pikatchu image. This is the test desribtion for the surprised pikatchu image. This is the test desribtion for the surprised pikatchu image.");
+
+    var renderLikes = Card(
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+      elevation: 5,
+      margin: EdgeInsets.all(10),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: <Widget>[
+            Icon(Icons.arrow_upward),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(upvotes.toString()),
+            ),
+            Icon(Icons.arrow_downward),
+          ],
+        ),
+      ),
     );
 
     var renderAppBar = AppBar(
@@ -47,10 +74,18 @@ class DetailedPageState extends State<DetailedPage> {
       ),
     );
 
+    var renderBody = ListView(
+      children: <Widget>[
+        renderCard,
+        renderLikes,
+        renderDescription,
+      ],
+    );
+
     var renderMain = Scaffold(
       appBar: renderAppBar,
       body: Container(
-        child: renderCard,
+        child: renderBody,
       ),
     );
 
