@@ -18,7 +18,7 @@ class M0mentCard {
 
   List getTags() => tags;
   String getImg() => img;
-  String etTitle() => title;
+  String getTitle() => title;
   String getDescr() => descr;
   int getId() => id;
   int getVotes() => votes;

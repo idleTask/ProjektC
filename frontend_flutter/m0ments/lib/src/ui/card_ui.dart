@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m0ments/src/blocs/cardList_bloc.dart';
 import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
 import 'package:m0ments/src/pages/detailedPage.dart';
+import 'package:m0ments/src/models/m0mentCard_model.dart';
 import 'package:bloc/bloc.dart';
 
 class CardUi extends StatelessWidget {
-  final M0mentCardBloc bloc;
-  final String img;
+  final CardListBloc clBloc;
+  final M0mentCard m0mentCard;
 
   const CardUi({
-    this.img,
-    this.bloc,
+    this.m0mentCard,
+    this.clBloc,
   });
 
   Widget build(BuildContext context) {
     //build the card
-    var card = new Card(
+    var card = Card(
       semanticContainer: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Image.asset(
-        img,
+        m0mentCard.getImg(),
         fit: BoxFit.fill,
       ),
       shape: RoundedRectangleBorder(
@@ -36,7 +39,7 @@ class CardUi extends StatelessWidget {
     );
 
     //build the sized box wrapped with a gesturedetector
-    var gestureDetector = new GestureDetector(
+    Widget gestureDetector = new GestureDetector(
       onTapUp: (tapUpDetails) {
         Navigator.push(
           context,

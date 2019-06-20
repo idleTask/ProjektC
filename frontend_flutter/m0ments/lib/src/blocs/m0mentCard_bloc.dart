@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:m0ments/src/models/m0mentCard.dart';
+import 'package:m0ments/src/models/m0mentCard_model.dart';
 import 'package:m0ments/src/models/m0mentCard_events.dart';
 
 class M0mentCardBloc extends Bloc<M0mentCardEvent, M0mentCard> {
@@ -10,13 +10,13 @@ class M0mentCardBloc extends Bloc<M0mentCardEvent, M0mentCard> {
   Stream<M0mentCard> mapEventToState(
     M0mentCardEvent event,
   ) async*{
-    if(event is TestEvent){
+    if(event is Upvote){
       print("yay");
       yield M0mentCard(
-        "lib/src/resources/images/surprised_pikatchu.png",
-        "title",
-        "describtion",
-        0,
+        currentState.img,
+        currentState.title,
+        currentState.descr,
+        currentState.id,
         currentState.votes++,
         [],
       );

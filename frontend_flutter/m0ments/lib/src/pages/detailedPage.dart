@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m0ments/src/blocs/cardList_bloc.dart';
+import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
+import 'package:m0ments/src/models/cardList_model.dart';
+import 'package:m0ments/src/models/m0mentCard_model.dart';
 import 'package:m0ments/src/resources/interfaceData.dart';
 import 'package:m0ments/src/ui/textcard.dart';
 
@@ -11,45 +16,56 @@ class DetailedPageState extends State<DetailedPage> {
   int upvotes = 2;
 
   Widget build(BuildContext context) {
-    String img = "lib/src/resources/images/surprised_pikatchu.png";
+    CardListBloc _clBloc = BlocProvider.of<CardListBloc>(context);
+    M0mentCardBloc _bloc = BlocProvider.of<M0mentCardBloc>(context);
 
-    var renderCard = new Card(
-      semanticContainer: true,
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      child: Image.asset(
-        img,
-        fit: BoxFit.fill,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      elevation: 5,
-      margin: EdgeInsets.all(10),
+    var renderCard = BlocBuilder(
+      bloc: _bloc,
+      builder: (context, M0mentCard state) {
+        return Card(
+          semanticContainer: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          child: Image.asset(
+            state.img,
+            fit: BoxFit.fill,
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          elevation: 5,
+          margin: EdgeInsets.all(10),
+        );
+      },
     );
 
     var renderDescription = new TextCard(
         "This is the test desribtion for the surprised pikatchu image. This is the test desribtion for the surprised pikatchu image. This is the test desribtion for the surprised pikatchu image. This is the test desribtion for the surprised pikatchu image.");
 
-    var renderLikes = Card(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      elevation: 5,
-      margin: EdgeInsets.all(10),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: <Widget>[
-            Icon(Icons.arrow_upward),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(upvotes.toString()),
+    var renderLikes = BlocBuilder(
+      bloc: _bloc,
+      builder: (context, M0mentCard state) {
+        return Card(
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          elevation: 5,
+          margin: EdgeInsets.all(10),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.arrow_upward),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(state.id.toString()),
+                ),
+                Icon(Icons.arrow_downward),
+              ],
             ),
-            Icon(Icons.arrow_downward),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
 
     var renderAppBar = AppBar(

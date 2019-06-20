@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m0ments/src/blocs/cardList_bloc.dart';
 import 'package:bloc/bloc.dart';
 import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
+import 'package:m0ments/src/models/cardList_model.dart';
 import 'package:m0ments/src/pages/addCardPage.dart';
 import 'package:m0ments/src/ui/appBar_ui.dart';
 import 'package:m0ments/src/ui/card_ui.dart';
@@ -23,27 +26,31 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     InterfaceData _interfaceData = new InterfaceData();
-    List<M0mentCardBloc> cardBlocs;
+    CardListBloc _clBloc = BlocProvider.of<CardListBloc>(context);
+    //M0mentCardBloc _bloc = BlocProvider.of<M0mentCardBloc>(context);
 
     //Refresh Indicator
     final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
         new GlobalKey<RefreshIndicatorState>();
 
-    var _appBody = Container(
-      child: RefreshIndicator(
-          key: _refreshIndicatorKey,
-          onRefresh: _refresh,
-          child: Container(
-            child: GridView.count(
-              crossAxisCount: 3,
-              children: <Widget>[
-                CardUi(img: "lib/src/resources/images/surprised_pikatchu.png"),
-                CardUi(img: "lib/src/resources/images/surprised_pikatchu.png"),
-                CardUi(img: "lib/src/resources/images/surprised_pikatchu.png"),
-                CardUi(img: "lib/src/resources/images/surprised_pikatchu.png")
-              ],
-            ),
-          )),
+    var _appBody = BlocBuilder(
+      bloc: _clBloc,
+      builder: (context, CardListState state) {
+        return RefreshIndicator(
+            key: _refreshIndicatorKey,
+            onRefresh: _refresh,
+            child: Container(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3),
+                itemCount: _clBloc.currentState.cardList.length,
+                itemBuilder: (BuildContext context, int i) {
+                  print(state.cardList[i]);
+                  return CardUi(m0mentCard: state.cardList[i], clBloc: _clBloc);
+                },
+              ),
+            ));
+      },
     );
 
     var floatingActionButton = Padding(
