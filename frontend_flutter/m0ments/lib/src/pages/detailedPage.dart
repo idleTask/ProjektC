@@ -22,46 +22,51 @@ class DetailedPageState extends State<DetailedPage> {
     var renderCard = BlocBuilder(
       bloc: _bloc,
       builder: (context, M0mentCard state) {
-        return Card(
-          semanticContainer: true,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: Image.asset(
-            state.img,
-            fit: BoxFit.fill,
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
+          child: Card(
+            semanticContainer: true,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: Image.asset(
+              state.img,
+              fit: BoxFit.fill,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            elevation: 5,
+            
           ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          elevation: 5,
-          margin: EdgeInsets.all(10),
         );
       },
     );
 
-    var renderDescription = new TextCard(
-        "This is the test desribtion for the surprised pikatchu image. This is the test desribtion for the surprised pikatchu image. This is the test desribtion for the surprised pikatchu image. This is the test desribtion for the surprised pikatchu image.");
+    var renderDescription = TextCard(
+        "This is the test desription for the surprised pikatchu image. This is the test desription for the surprised pikatchu image. This is the test desribtion for the surprised pikatchu image. This is the test desribtion for the surprised pikatchu image.");
 
     var renderLikes = BlocBuilder(
       bloc: _bloc,
       builder: (context, M0mentCard state) {
-        return Card(
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          elevation: 5,
-          margin: EdgeInsets.all(10),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: <Widget>[
-                Icon(Icons.arrow_upward),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(state.id.toString()),
-                ),
-                Icon(Icons.arrow_downward),
-              ],
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
+          child: Card(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            elevation: 5,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
+              child: Row(
+                children: <Widget>[
+                  Icon(Icons.arrow_upward),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(state.id.toString(), style: TextStyle(fontSize: 17),),
+                  ),
+                  Icon(Icons.arrow_downward),
+                ],
+              ),
             ),
           ),
         );
