@@ -8,8 +8,12 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
+  const image = {
+    name: req.body.name
+  };
   res.status(201).json({
-    message: 'Handling post request to /images'
+    message: 'Handling post request to /images',
+    image: image
   });
 });
 
