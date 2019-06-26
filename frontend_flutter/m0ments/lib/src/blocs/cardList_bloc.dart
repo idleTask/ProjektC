@@ -3,13 +3,15 @@ import 'package:m0ments/src/models/cardList_events.dart';
 import 'package:m0ments/src/models/cardList_model.dart';
 import 'package:m0ments/src/models/m0mentCard_model.dart';
 
+import 'm0mentCard_bloc.dart';
+
 class CardListBloc extends Bloc<CardListEvent, CardListState> {
 
-  onRemoveCard(M0mentCard item) {
+  onRemoveCard(M0mentCardBloc item) {
     dispatch(RemoveCard(item));
   }
 
-  onAddCard(M0mentCard item) {
+  onAddCard(M0mentCardBloc item) {
     dispatch(AddCard(item));
   }
 

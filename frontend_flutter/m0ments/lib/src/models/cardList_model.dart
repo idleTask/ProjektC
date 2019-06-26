@@ -1,7 +1,7 @@
-import 'package:m0ments/src/models/m0mentCard_model.dart';
+import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
 
 class CardListState {
-  List<M0mentCard> cardList = new List<M0mentCard>();
+  List<M0mentCardBloc> cardList = new List<M0mentCardBloc>();
 
   CardListState._();
   CardListState(this.cardList);

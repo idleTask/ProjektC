@@ -27,7 +27,6 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     InterfaceData _interfaceData = new InterfaceData();
     CardListBloc _clBloc = BlocProvider.of<CardListBloc>(context);
-    //M0mentCardBloc _bloc = BlocProvider.of<M0mentCardBloc>(context);
 
     //Refresh Indicator
     final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
@@ -45,7 +44,7 @@ class HomePageState extends State<HomePage> {
                     crossAxisCount: 3),
                 itemCount: _clBloc.currentState.cardList.length,
                 itemBuilder: (BuildContext context, int i) {
-                  print(state.cardList[i]);
+                  print(state.cardList[i].currentState.id);
                   return CardUi(m0mentCard: state.cardList[i], clBloc: _clBloc);
                 },
               ),

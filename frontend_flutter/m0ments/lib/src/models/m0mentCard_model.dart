@@ -5,6 +5,8 @@ class M0mentCard {
   String descr;
   int id;
   int votes;
+  bool upvoted;
+  bool downvoted;
 
   M0mentCard._();
   M0mentCard(
@@ -13,6 +15,8 @@ class M0mentCard {
     this.descr,
     this.id,
     this.votes,
+    this.upvoted,
+    this.downvoted,
     this.tags,
   );
 
@@ -22,9 +26,11 @@ class M0mentCard {
   String getDescr() => descr;
   int getId() => id;
   int getVotes() => votes;
+  bool isUpvoted() => upvoted;
+  bool isDownvoted() => downvoted;
 
   String toString() {
-    return "Img: $img, Title: $title, Describtion: $descr, ID: $id, Votes: $votes, Tags: $tags";
+    return "Img: $img, Title: $title, Describtion: $descr, ID: $id, Votes: $votes, Upvoted: $upvoted, Downvoted: $downvoted, Tags: $tags";
   }
 
   factory M0mentCard.initial() {
@@ -34,6 +40,8 @@ class M0mentCard {
       ..descr = "describtion"
       ..id = 0
       ..votes = 0
+      ..upvoted = false
+      ..downvoted = false
       ..tags;
   }
 }

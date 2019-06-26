@@ -8,6 +8,11 @@ import 'package:m0ments/src/resources/interfaceData.dart';
 import 'package:m0ments/src/ui/textcard.dart';
 
 class DetailedPage extends StatefulWidget {
+  final M0mentCardBloc bloc;
+  DetailedPage({
+    @required this.bloc,
+  });
+
   DetailedPageState createState() => DetailedPageState();
 }
 
@@ -17,10 +22,14 @@ class DetailedPageState extends State<DetailedPage> {
 
   Widget build(BuildContext context) {
     CardListBloc _clBloc = BlocProvider.of<CardListBloc>(context);
-    M0mentCardBloc _bloc = BlocProvider.of<M0mentCardBloc>(context);
+    M0mentCardBloc bloc = widget.bloc;
+    bool upVoted = false;
+
+    print("detailedPage:");
+    print(bloc.currentState);
 
     var renderCard = BlocBuilder(
-      bloc: _bloc,
+      bloc: bloc,
       builder: (context, M0mentCard state) {
         return Padding(
           padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
@@ -35,17 +44,17 @@ class DetailedPageState extends State<DetailedPage> {
               borderRadius: BorderRadius.circular(10.0),
             ),
             elevation: 5,
-            
           ),
         );
       },
     );
 
     var renderDescription = TextCard(
-        "This is the test desription for the surprised pikatchu image. This is the test desription for the surprised pikatchu image. This is the test desribtion for the surprised pikatchu image. This is the test desribtion for the surprised pikatchu image.");
-
+      bloc.currentState.getDescr()
+    );
+    
     var renderLikes = BlocBuilder(
-      bloc: _bloc,
+      bloc: bloc,
       builder: (context, M0mentCard state) {
         return Padding(
           padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0),
@@ -58,13 +67,50 @@ class DetailedPageState extends State<DetailedPage> {
             child: Padding(
               padding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 8.0),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Icon(Icons.arrow_upward),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(state.id.toString(), style: TextStyle(fontSize: 17),),
+                  Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_upward),
+                          splashColor: Colors.orange[300],
+                          onPressed: () {
+                            setState(() {
+                              bloc.upvote();
+                            });
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          state.votes.toString(),
+                          style: TextStyle(fontSize: 17),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                          icon: Icon(Icons.arrow_downward),
+                          splashColor: Colors.blue[400],
+                          onPressed: () {
+                            setState(() {
+                              bloc.downvote();
+                            });
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                  Icon(Icons.arrow_downward),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      "ID: " + state.id.toString(),
+                      style: TextStyle(fontSize: 17),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -75,7 +121,7 @@ class DetailedPageState extends State<DetailedPage> {
 
     var renderAppBar = AppBar(
       title: Text(
-        "title",
+        bloc.currentState.getTitle(),
         style: TextStyle(
           color: _interfaceData.getAppBarTextColor(),
         ),

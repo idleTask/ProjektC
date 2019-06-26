@@ -8,7 +8,7 @@ import 'package:bloc/bloc.dart';
 
 class CardUi extends StatelessWidget {
   final CardListBloc clBloc;
-  final M0mentCard m0mentCard;
+  final M0mentCardBloc m0mentCard;
 
   const CardUi({
     this.m0mentCard,
@@ -21,7 +21,7 @@ class CardUi extends StatelessWidget {
       semanticContainer: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Image.asset(
-        m0mentCard.getImg(),
+        m0mentCard.currentState.getImg(),
         fit: BoxFit.fill,
       ),
       shape: RoundedRectangleBorder(
@@ -40,10 +40,16 @@ class CardUi extends StatelessWidget {
 
     //build the sized box wrapped with a gesturedetector
     Widget gestureDetector = new GestureDetector(
-      onTapUp: (tapUpDetails) {
+      onTap: () {
+        print("Card_ui:");
+        print(m0mentCard.currentState);
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => DetailedPage()),
+          MaterialPageRoute(
+            builder: (context) => DetailedPage(
+              bloc: m0mentCard
+            ),
+          ),
         );
       },
       child: sizedBox,

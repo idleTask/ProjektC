@@ -54,7 +54,7 @@ class AddCardPageState extends State<AddCardPage> {
                   state.id = _clBloc.currentState.cardList.length;
                   state.descr = descriptionController.text;
                   state.title = titleController.text;
-                  _clBloc.onAddCard(_bloc.currentState);
+                  _clBloc.onAddCard(_bloc);
                   Navigator.pop(context);
                 });
               },
@@ -75,6 +75,7 @@ class AddCardPageState extends State<AddCardPage> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              maxLength: 30,
               controller: titleController,
               onEditingComplete: () {
                 setState(() {
@@ -103,6 +104,7 @@ class AddCardPageState extends State<AddCardPage> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
+              maxLength: 250,
               style: TextStyle(fontSize: 17),
               keyboardType: TextInputType.multiline,
               maxLines: 5,
