@@ -1,0 +1,36 @@
+
+body {
+	background-color: #171717 ; /*Lavender;*/
+}
+
+
+/*Sidebar*/
+
+.Sidebar {
+	width:200px;
+	height: 1000px;
+	display: none; /*block*/
+	background-color: #DDAD1C;
+	
+	/*position: fixed;*/
+}
+
+
+
+#openNav {
+	position: fixed;
+}
+
+
+/*mainpart*/
+
+.main {
+	margin-left:250px;
+}
+
+#name {
+	color: #DDAD1C;
+}
+#images {
+	
+}

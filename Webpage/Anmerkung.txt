@@ -1,4 +1,0 @@
-HTMLTest sind HTML Versionen der Website, wo ich die Layouts überprüft habe. 
-In Zwischenstand sind Backupversionen der Website drin, welche auch schon als JS gespeichert sind aber noch keine Funtkionen besitzen.
-
-Funktionen und Farbanpassungen sind meine nächsten Vorhaben.
