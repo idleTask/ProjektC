@@ -1,6 +1,6 @@
-Bilder vergrößern können durch klicken
+
 (Kommentare/Liken)
-Wieder verkleinern.
+
 
 Datenbankanbindung
 

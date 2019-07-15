@@ -22,28 +22,88 @@
 <div class="Sidebar" id="sidebar" >
   
   
-  <a href="Homepage.html" class="navi">HOME</a>  </br>
-  <a href="Upload.html" class="navi">UPLOAD</a>  </br>
-  <a href="#" class="navi">Link 3</a>  </br>
+   <a href="Homepage.html" class="navi">Home</a>  </br>
+  <a href="Upload.html" class="navi">Upload</a>  </br>
+  <a href="Impressum.html" class="navi">Impressum</a>  </br>
 </div>
 </div>
 <!-- -->
 <div class="main">
 	  <h1 id="name">M0ments</h1>
-	  
-	<form id="upload">
-				<strong> Upload:</strong> </br>
-				<input type="text" ti="title" id="button" placeholder="Title"></br>
-				<input type="text" tag="tag" id="button" placeholder="Tag"></br>
-				<input type="image" im="image" id="button" placeholder="Title"></br>
-				<!-- <input type="text" passwort="pw" id="button" placeholder="confirm your password"> -->
-				<input type="submit" value="upload" id="button">
-				</br></br>
-			</form>
-		</div> 
+	  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
+<div class= "white">
+
+
+
+<h2>Upload </h2>
+<hr id="line">
+
+<form id="uploadimage" action="" method="post" enctype="multipart/form-data">
+	<div id="selectImage">
+		<label>Select Your Image</label><br/>
+		<input type="file" name="file" id="file" required />
+		<input type="submit" value="Upload" id= "button" class="submit" />
+	</div>
+
+	<div id="image_preview"><img id="preview" src="" /></div>
+	<div id="selectImage">
+
+</form>
+
 
 </div>
 
+
+
+
+
+
+
+
+
+<script language="javascript" type="text/javascript" src="js/upload.js"></script>
+
+
+
+<?php
+if(isset($_FILES["file"]["type"]))
+{
+$validextensions = array("jpeg", "jpg", "png");
+$temporary = explode(".", $_FILES["file"]["name"]);
+$file_extension = end($temporary);
+if ((($_FILES["file"]["type"] == "image/png") || ($_FILES["file"]["type"] == "image/jpg") || ($_FILES["file"]["type"] == "image/jpeg")
+) && ($_FILES["file"]["size"] < 100000)//Approx. 100kb files can be uploaded.
+&& in_array($file_extension, $validextensions)) {
+if ($_FILES["file"]["error"] > 0)
+{
+echo "Return Code: " . $_FILES["file"]["error"] . "<br/><br/>";
+}
+else
+{
+if (file_exists("upload/" . $_FILES["file"]["name"])) {
+echo $_FILES["file"]["name"] . " <span id='invalid'><b>already exists.</b></span> ";
+}
+else
+{
+$sourcePath = $_FILES['file']['tmp_name']; // Storing source path of the file in a variable
+$targetPath = "upload/".$_FILES['file']['name']; // Target path where file is to be stored
+move_uploaded_file($sourcePath,$targetPath) ; // Moving Uploaded file
+echo "<span id='success'>Image Uploaded Successfully...!!</span><br/>";
+echo "<br/><b>File Name:</b> " . $_FILES["file"]["name"] . "<br>";
+echo "<b>Type:</b> " . $_FILES["file"]["type"] . "<br>";
+echo "<b>Size:</b> " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+echo "<b>Temp file:</b> " . $_FILES["file"]["tmp_name"] . "<br>";
+}
+}
+}
+else
+{
+echo "<span id='invalid'>***Invalid file Size or Type***<span>";
+}
+}
+?>
 
 
 

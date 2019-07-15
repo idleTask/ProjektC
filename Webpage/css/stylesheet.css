@@ -52,15 +52,17 @@ body {
 
 #button{
 	width: 300px;
-	margin-top:5px;
-	padding: 13px;
-	border-radius: 7px;
+	margin-top:2px;
+	padding: 5px;
+	border-radius: 5px;
 }
 
 
 
 
-
+.white {
+	background-color : white;
+}
 
 
 
