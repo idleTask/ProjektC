@@ -7,7 +7,7 @@ $(document).ready(function (e) {
 	$('#loading').show();
 
 		$.ajax({
-			url: "", 					// Request URL							//!! Fehlt noch !!
+			url: "fileajax.php", 					// Request URL							//!! Fehlt noch !!
 			type: "POST",             	// Request Type	
 			data: new FormData(this), 	// Data
 			contentType: false,       	// Content type
