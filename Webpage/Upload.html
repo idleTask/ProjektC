@@ -41,10 +41,14 @@
 <hr id="line">
 
 <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
-	<div id="selectImage">
-		<label>Select Your Image</label><br/>
+	<div id="selectImage" style="margin-left: 10px">
+		<p>Title</p>
+		<input id="title" type="text"></input>
+		<p>Description:</p>
+		<textarea id="description"></textarea>
+		<p>Select Your Image</p>
 		<input type="file" name="file" id="file" required />
-		<input type="submit" value="Upload" id= "button" class="submit" />
+		<button type="button" onclick="onUploadSubmit()">Upload!</button> 
 	</div>
 
 	<div id="image_preview"><img id="preview" src="" /></div>

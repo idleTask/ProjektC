@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TextCard extends StatelessWidget {
-  String descrText;
+  final String descrText;
 
   TextCard(this.descrText);
 
