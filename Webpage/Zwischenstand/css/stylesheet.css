@@ -1,0 +1,76 @@
+
+body {
+	background-color: Lavender;
+}
+.sidebars {
+	background-color: mistyrose;
+	width: 15%;					/*breite */
+	height: 100%;				/*höhe */
+	position: fixed;
+	display:  inline-block;	
+	text-align: center;
+	font-size: 20px;
+}
+
+.navigation{ 
+	
+	margin-left: 800px;
+	font-size: 20px;
+	word-spacing: 20px;
+	align-items: center;
+	justify-content: center;
+	
+}	
+
+
+.registerad{
+	margin-left: 800px;
+	
+	
+	
+}
+
+
+
+
+.imagesection {
+	
+	margin-top: 20px;
+	margin-left: 350px;
+	margin-right: 220px;
+}
+
+.othercolor {
+		background-color: mistyrose;
+		/*Margin-left: 700px;*/
+		
+}
+
+
+searchbar {}
+image {}
+
+registerbutton {}
+
+userinfo {}
+
+userbutton {}
+
+usermenu {}
+
+userfavorits {}
+
+usergallery {}
+
+
+
+Login {}
+
+register  {}
+
+upload {}
+uploadform {}
+
+faq {}
+
+mobileapp {}
