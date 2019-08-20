@@ -1,0 +1,161 @@
+
+body {
+	background-color: #171717 ; /*Lavender;*/
+}
+
+
+/*Sidebar*/
+
+.Sidebar {
+	width:200px;
+	height: 1000px;
+	display: none; 
+	background-color: #DDAD1C;
+	
+	
+}
+
+
+
+.Sidebutton2 {
+	width: 100px;
+	
+}
+
+#openNav {
+	position: fixed;
+	
+	
+}
+
+
+
+/*mainpart*/
+
+.main {
+	margin-left:250px;
+}
+
+#name {
+	color: #DDAD1C;
+}
+#images {
+	
+}
+
+
+/*Upload*/
+#upload {
+	color:#DDAD1C;
+	
+}
+
+#button{
+	width: 300px;
+	margin-top:2px;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+
+
+
+.white {
+	background-color : white;
+}
+
+
+
+
+
+
+/* REGISTRATION/LOGIN */
+/*
+.LoginFORM{
+	
+	margin-left: 350px;
+	display: inline-block;
+	
+}
+#rcorners1 {
+  border-radius: 25px;
+  background: #73AD21;
+  padding: 20px;
+  width: 200px;
+  height: 150px;
+}
+#registration, #login {
+	Margin: 20px;
+	opacity: 0.8;
+	padding: 30px;
+	border-radius: 35px;
+  background: #73AD21;
+}*/
+
+
+/*images and scaling divs*/
+.images
+{
+    display: inline;
+    margin: 15px;
+}
+.displayImages
+{
+    border: 5px solid #ccc;
+}
+.displayImages:hover
+{
+    border: 5px solid #111;
+}
+#bigImage
+{
+    float:left;
+}
+.modal 
+{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 5px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(38, 38, 38, 0.7);
+}
+.modalContent
+{
+    overflow: hidden;
+    width:75%;
+    background-color: rgba(88, 88, 88, 0.8);
+    display: block;
+    margin-left: 10%;
+    margin-top: 5%;
+}
+.modalContent img
+{
+    float:left;
+    margin-right: 2%;
+    width: auto;      /*800px; */
+   height: auto;	  /* 800px;*/
+}
+.comments
+{
+    margin-top: 1%;
+    color: white; 
+    font-size: 28px;
+}
+.close 
+{
+    color: white;
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    font-size: 55px;
+    font-weight: bold;
+}
+.cursor 
+{
+    cursor: pointer;
+}

@@ -1,7 +1,7 @@
-Bilder vergrößern können durch klicken
-Kommentare/Liken
-Wieder verkleinern.
+
+(Kommentare/Liken)
+
 
 Datenbankanbindung
 
-Andere Subpages fertig machen
+(Andere Subpages fertig machen)
