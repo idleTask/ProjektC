@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:m0ments/src/models/cardList_events.dart';
 import 'package:m0ments/src/models/cardList_model.dart';
-import 'package:m0ments/src/models/m0mentCard_model.dart';
 
 import 'm0mentCard_bloc.dart';
 

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m0ments/src/blocs/cardList_bloc.dart';
-import 'package:bloc/bloc.dart';
-import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
 import 'package:m0ments/src/models/cardList_model.dart';
 import 'package:m0ments/src/pages/addCardPage.dart';
 import 'package:m0ments/src/ui/appBar_ui.dart';

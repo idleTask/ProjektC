@@ -1,5 +1,4 @@
 import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
-import 'package:m0ments/src/models/m0mentCard_model.dart';
 
 abstract class CardListEvent {}
 

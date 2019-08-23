@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m0ments/src/blocs/cardList_bloc.dart';
 import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
-import 'package:m0ments/src/models/cardList_model.dart';
 import 'package:m0ments/src/models/m0mentCard_model.dart';
 import 'package:m0ments/src/resources/interfaceData.dart';
 import 'package:m0ments/src/ui/textcard.dart';
@@ -21,9 +19,8 @@ class DetailedPageState extends State<DetailedPage> {
   int upvotes = 2;
 
   Widget build(BuildContext context) {
-    CardListBloc _clBloc = BlocProvider.of<CardListBloc>(context);
+    //CardListBloc _clBloc = BlocProvider.of<CardListBloc>(context);
     M0mentCardBloc bloc = widget.bloc;
-    bool upVoted = false;
 
     print("detailedPage:");
     print(bloc.currentState);

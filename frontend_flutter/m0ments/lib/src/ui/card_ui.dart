@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m0ments/src/blocs/cardList_bloc.dart';
 import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
 import 'package:m0ments/src/pages/detailedPage.dart';
-import 'package:m0ments/src/models/m0mentCard_model.dart';
-import 'package:bloc/bloc.dart';
 
 class CardUi extends StatelessWidget {
   final CardListBloc clBloc;
