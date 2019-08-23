@@ -1,6 +1,4 @@
 // Image Upload Request Function
-var jwt = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGFkbWluLmRlIiwibmFtZSI6ImFkbWluIiwiX2lkIjoiNWQ1NDAzYmI3OTNmYmYwODcyZmViZTI0IiwiaWF0IjoxNTY2MzA1NDUxLCJleHAiOjE1NjYzOTE4NTF9.1D5EZd9N_NKZV4UW2N0P0PhUdHdu0f4MkVIJa2gc11M";
-var jwtString = "Bearer "  + jwt;
 var url = "http://192.168.10.10";
 var port = 3000;
 var allItems;
@@ -11,7 +9,9 @@ function onUploadSubmit() {
 	$('#loading').show();
 	var title = $('#title').prop('value');
 	var description = $('#description').prop('value');
-	
+	var x = document.cookie;
+	var jwtString = getCookie('jwt');
+
 	var formData = new FormData();
 	formData.append('title', title);
 	formData.append('description', description);
@@ -34,7 +34,7 @@ function onUploadSubmit() {
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
 			console.log('fehler');
-			window.location.href = 'Homepage.html'; //TODO: change to login page
+			window.location.href = 'Register-loginpage.html';
 		}
 	});
 }
@@ -65,8 +65,25 @@ function imageIsLoaded(e) {
 	$('#preview').attr('height', '230px');
 };
 
+function getCookie(cname) {
+  var name = cname + "=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
 function getAllItems() {
-	
+	var x = document.cookie;
+	var jwtString = getCookie('jwt');
 
 	$.ajax({
 		url: url + ":" + port + "/items", 					// Request URL							//!! Fehlt noch !!
@@ -84,22 +101,83 @@ function getAllItems() {
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
 			console.log('fehler');
+			// window.location.href = 'Register-loginpage.html';
 		}
 	});
 }
 
-$( document ).ready(function() {
+$(document).ready(function () {
 	getAllItems();
-	
 });
 
 function displayItems(data) {
 	var items = data.items;
-	items.forEach(function(item, index){
-	
+	items.forEach(function (item, index) {
+
 		var imageSrc = "'" + url + ":" + port + "/" + item.itemImage + "'";
 
-		$('#images').append("<div class=images><img class= 'displayImages' src=" + imageSrc + "onclick='openModal(id)' height='200' width='200' id='"+ index + "'></div>")
-		
+		$('#images').append("<div class=images><img class= 'displayImages' src=" + imageSrc + "onclick='openModal(id)' height='200' width='200' id='" + index + "'></div>")
+
+	});
+}
+
+function onLogin() {
+	var password, email, data;
+
+	password = document.getElementById('passwordLogin');
+	email = document.getElementById('emailLogin');
+
+	data = {
+		"password": password.value,
+		"email": email.value
+	}
+
+	$.ajax({
+		url: url + ":" + port + "/user/login", 					// Request URL							//!! Fehlt noch !!
+		type: "post",
+		data: data,
+		success: function (data)   	//  function called when succeded
+		{
+			console.log('success');
+			console.log(data);
+			jwt = data.token;
+			jwtString = "Bearer " + jwt;
+			document.cookie = "jwt=" + jwtString;
+			window.location.href = 'Homepage.html';
+			getAllItems();
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			console.log('fehler');
+		}
+	});
+
+}
+
+function onRegister() {
+	console.log('register');
+	var password, email, name, data;
+
+	password = document.getElementById('passwordRegister');
+	email = document.getElementById('emailRegister');
+	name = document.getElementById('nameRegister');
+
+	var data = {
+		"name": name.value,
+		"email":	email.value,
+		"password":	password.value
+	}
+
+	$.ajax({
+		url: url + ":" + port + "/user/signup", 					// Request URL							//!! Fehlt noch !!
+		type: "post",
+		data: data,
+		success: function (data)   	//  function called when succeded
+		{
+			console.log('success');
+			console.log(data);
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			console.log('fehler');
+		}
 	});
 }
