@@ -159,3 +159,37 @@ body {
 {
     cursor: pointer;
 }
+
+
+
+
+/* registration/Login */
+
+/* REGISTRATION/LOGIN */
+
+.LoginFORM{
+	/*text-align: center;*/
+	margin-left: 350px;
+	display: inline-block;
+	
+}
+#rcorners1 {
+  border-radius: 25px;
+  background: #73AD21;
+  padding: 20px;
+  width: 200px;
+  height: 150px;
+}
+#registration, #login {
+	Margin: 20px;
+	opacity: 0.8;
+	padding: 30px;
+	border-radius: 35px;
+  background: #73AD21;
+}
+#button{
+	width: 300px;
+	margin-top:5px;
+	padding: 13px;
+	border-radius: 7px;
+}

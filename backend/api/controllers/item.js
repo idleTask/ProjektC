@@ -2,13 +2,14 @@ const mongoose = require('mongoose');
 const Item = require('../models/item');
 
 exports.items_get_all = (req, res, next) => {
-  Item.find().select('title _id itemImage userId').then(
+  Item.find().select('title description _id itemImage userId').then(
     docs => {
       const response = {
         count: docs.length,
         items: docs.map(doc => {
           return {
             title: doc.title,
+            description: doc.description,
             id: doc._id,
             itemImage: doc.itemImage,
             userId: doc.userId
@@ -27,6 +28,7 @@ exports.items_post = (req, res, next) => {
   const item = new Item({
     _id: new mongoose.Types.ObjectId(),
     title: req.body.title,
+    description: req.body.description,
     itemImage: req.file.path,
     userId: req.userData._id
   });
@@ -36,6 +38,7 @@ exports.items_post = (req, res, next) => {
       message: 'Created item successfully',
       createdItem: {
         title: result.title,
+        description: result.description,
         itemImage: result.itemImage,
         _id: result._id,
         userId: result.userId
@@ -50,7 +53,7 @@ exports.items_post = (req, res, next) => {
 exports.items_itemId_get = (req, res, next) => {
   const id = req.params.itemId;
 
-  Item.findById(id).select('title _id itemImage userId').then(doc => {
+  Item.findById(id).select('title description _id itemImage userId').then(doc => {
     console.log(doc);
     if (doc) {
       res.status(200).json(doc);
