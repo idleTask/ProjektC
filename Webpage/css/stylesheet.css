@@ -1,6 +1,13 @@
+/*Maincolors:
+0xFFE57373  #e57373     rot
+0xFF37474F  #37474F     blau-grau
+0xFF263238  #263238     dunkleres blau-grau
+*/
+
+
 
 body {
-	background-color: #171717 ; /*Lavender;*/
+	background-color: #263238 ;
 }
 
 
@@ -10,7 +17,7 @@ body {
 	width:200px;
 	height: 1000px;
 	display: none; 
-	background-color: #DDAD1C;
+	background-color: #37474F ;
 	
 	
 }
@@ -37,7 +44,7 @@ body {
 }
 
 #name {
-	color: #DDAD1C;
+	color: #e57373 
 }
 #images {
 	
@@ -46,7 +53,7 @@ body {
 
 /*Upload*/
 #upload {
-	color:#DDAD1C;
+	color:#e57373 ;
 	
 }
 
@@ -61,7 +68,7 @@ body {
 
 
 .white {
-	background-color : white;
+	background-color : #37474F;
 }
 
 

@@ -1,5 +1,5 @@
 // Image Upload Request Function
-var url = "http://192.168.10.10";
+var url = "http://127.0.0.1";
 var port = 3000;
 var allItems;
 
@@ -33,7 +33,7 @@ function onUploadSubmit() {
 			window.location.href = 'Homepage.html';
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
-			console.log('fehler');
+			console.log('fehler2');
 			window.location.href = 'Register-loginpage.html';
 		}
 	});
@@ -84,7 +84,7 @@ function getCookie(cname) {
 function getAllItems() {
 	var x = document.cookie;
 	var jwtString = getCookie('jwt');
-
+	console.log(jwtString);
 	$.ajax({
 		url: url + ":" + port + "/items", 					// Request URL							//!! Fehlt noch !!
 		type: "get",
@@ -100,7 +100,9 @@ function getAllItems() {
 			allItems = data;
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
-			console.log('fehler');
+			console.log(XMLHttpRequest);
+			console.log(errorThrown);
+			console.log('fehler2');
 			// window.location.href = 'Register-loginpage.html';
 		}
 	});
@@ -131,7 +133,7 @@ function onLogin() {
 		"password": password.value,
 		"email": email.value
 	}
-
+	console.log(data);
 	$.ajax({
 		url: url + ":" + port + "/user/login", 					// Request URL							//!! Fehlt noch !!
 		type: "post",
@@ -166,7 +168,7 @@ function onRegister() {
 		"email":	email.value,
 		"password":	password.value
 	}
-
+	
 	$.ajax({
 		url: url + ":" + port + "/user/signup", 					// Request URL							//!! Fehlt noch !!
 		type: "post",
