@@ -14,18 +14,25 @@ body {
 /*Sidebar*/
 
 .Sidebar {
-	width:200px;
+	width:220px;
 	height: 1000px;
 	display: none; 
-	background-color: #37474F ;
+	background-color: #e57373 ;
+	opacity: 0.8;
 	
-	
+	text-align: center;
+	padding-top: 25px;
+	font-size: 20px;
 }
 
 
 
 .Sidebutton2 {
-	width: 100px;
+	width: 220px;
+	height: 40px;
+	background-color: #e57373  ;
+	border-color: #e57373 ;
+	
 	
 }
 
@@ -65,39 +72,24 @@ body {
 }
 
 
+/* upload */
 
-
-.white {
+.uploadwindow {
 	background-color : #37474F;
+	color: White;
+	border: 3px solid #e57373;
 }
 
-
-
-
-
-
-/* REGISTRATION/LOGIN */
-/*
-.LoginFORM{
-	
-	margin-left: 350px;
-	display: inline-block;
+.uploadfield {
+	background-color: #263238 ;
+	border: 3px solid #e57373;	
+	Color: White;
 	
 }
-#rcorners1 {
-  border-radius: 25px;
-  background: #73AD21;
-  padding: 20px;
-  width: 200px;
-  height: 150px;
-}
-#registration, #login {
-	Margin: 20px;
-	opacity: 0.8;
-	padding: 30px;
-	border-radius: 35px;
-  background: #73AD21;
-}*/
+
+
+
+
 
 
 /*images and scaling divs*/
@@ -176,10 +168,41 @@ body {
 
 .LoginFORM{
 	/*text-align: center;*/
-	margin-left: 350px;
+	padding: 20px;
+	margin: 150px;
 	display: inline-block;
+	background-color: #191919;
+	color: white;
+	border-radius: 24px;
+	outline: none;
+	
 	
 }
+
+.formfield {
+	width: 250px;
+	height: 45px;
+	margin: 8px auto;
+	display: block;
+	border: 3px solid #e57373;
+	text-align: center;
+	background-color: #37474F;
+	color: White;
+	border-radius: 24px;
+	}
+.formbtn {
+	text-align: center;
+	width: 140px;
+	height: 45px;
+	background-color: #263238 ;
+	border-color: #e57373;
+	color: White;
+	cursor: pointer;
+	margin-left: 55px;
+	border-radius: 14px;
+}
+
+
 #rcorners1 {
   border-radius: 25px;
   background: #73AD21;

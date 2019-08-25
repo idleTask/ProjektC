@@ -33,7 +33,7 @@
 	  <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 
-<div class= "white">
+<div class= "uploadwindow">
 
 
 
@@ -43,12 +43,12 @@
 <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
 	<div id="selectImage" style="margin-left: 10px">
 		<p>Title</p>
-		<input id="title" type="text"></input>
+		<input id="title" class="uploadfield" type="text"></input>
 		<p>Description:</p>
-		<textarea id="description"></textarea>
+		<textarea class="uploadfield" id="description"></textarea>
 		<p>Select Your Image</p>
 		<input type="file" name="file" id="file" required />
-		<button type="button" onclick="onUploadSubmit()">Upload!</button> 
+		<button type="button" class="formbtn" onclick="onUploadSubmit()">Upload!</button> 
 	</div>
 
 	<div id="image_preview"><img id="preview" src="" /></div>
