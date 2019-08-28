@@ -31,7 +31,6 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
 
-    //TODO: Muss so gemacht werden, dass wenn man wo anders klickt, der Highlight auf dem TextField weg ist
     var usernameWidget = Padding(
       padding: const EdgeInsets.fromLTRB(30.0, 10, 30.0, 10),
       child: Theme(
@@ -72,7 +71,6 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
 
-    //TODO: Der ist aktuell manuell "gesized" mit Padding damit er so groß ist wie der Register Button. Also beide auf eine Größe bringen.
     var loginButton = Padding(
       padding: const EdgeInsets.fromLTRB(30.0, 10, 30.0, 10),
       child: RaisedButton(
