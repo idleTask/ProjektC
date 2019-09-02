@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class InterfaceData {
   //Variablen
   final Color _appBarTextColor = Colors.red[300];
+    final Color _highlightGrey = Colors.black38;
   final Color _appBarBackgroundColor = Colors.blueGrey[800];
   final Color _containerColor = Colors.blueGrey[900];
 
@@ -24,5 +25,9 @@ class InterfaceData {
 
   Color getContainerColor(){
     return _containerColor;
+  }
+
+  Color getHighlightGrey(){
+    return _highlightGrey;
   }
 }

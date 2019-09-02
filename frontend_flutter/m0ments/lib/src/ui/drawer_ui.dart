@@ -29,7 +29,14 @@ return Drawer(
         ListTile(
           leading: Icon(Icons.info),
           title: _interfaceData.coloredText('Impressum'),
-        )
+        ),
+        ListTile(
+          leading: Icon(Icons.close),
+          title: _interfaceData.coloredText('Logout'),
+          onTap: (){
+            Navigator.pushNamed(context, "LoginPage");
+          },
+        ),
       ],
     ),
   ),
