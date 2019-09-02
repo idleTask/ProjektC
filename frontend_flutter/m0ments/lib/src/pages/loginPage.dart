@@ -1,10 +1,16 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:m0ments/src/blocs/profile_bloc.dart';
+import 'package:m0ments/src/models/profile_model.dart';
 import 'package:m0ments/src/resources/interfaceData.dart';
 import 'package:m0ments/src/pages/homePage.dart';
 import 'package:http/http.dart' as http;
+
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage();
@@ -15,14 +21,22 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-
     InterfaceData interfaceData = new InterfaceData();
+    ProfileBloc profileBloc = BlocProvider.of<ProfileBloc>(context);
 
     var token = "";
     var email = "";
     var password = "G5lQJ5Sm0f5cupxe";
-    var url = 'http://localhost:3000/user/login';
+    var loginUrl = 'http://localhost:3000/user/login';
     var loginBody = {"email": email, "password": password};
+    var userUrl = 'http://localhost:3000/user';
+
+    Map<String, String> getUserHeader() {
+      return {
+        'Content-type': 'application/json',
+        HttpHeaders.authorizationHeader: 'Bearer ' + token,
+      };
+    }
 
     void updateLoginBody(String email, String password) {
       loginBody = {"email": email, "password": password};
@@ -85,7 +99,7 @@ class LoginPageState extends State<LoginPage> {
     }
 
     Future<Login> tryLogin() async {
-      final response = await http.post(url, body: loginBody);
+      final response = await http.post(loginUrl, body: loginBody);
 
       if (response.statusCode == 200) {
         // If server returns an OK response, parse the JSON
@@ -97,6 +111,23 @@ class LoginPageState extends State<LoginPage> {
         print("Login failed");
         _loginFailedAlert();
         //throw Exception(response.body);
+      }
+    }
+
+    Future<User> getUserData() async {
+      print(getUserHeader());
+      final response = await http.get(userUrl, headers: getUserHeader());
+
+      if (response.statusCode == 200) {
+        // If server returns an OK response, parse the JSON
+        print("Userdata Ok");
+        print(json.decode(response.body));
+        return User.fromJson(json.decode(response.body));
+      } else {
+        // If that response was not OK, throw an error.
+        print("Get userdata failed");
+        _loginFailedAlert();
+        throw Exception(response.body);
       }
     }
 
@@ -169,38 +200,55 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
 
-    var loginButton = Padding(
-      padding: const EdgeInsets.fromLTRB(30.0, 10, 30.0, 10),
-      child: RaisedButton(
-        elevation: 0,
-        highlightElevation: 0,
-        shape: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: interfaceData.getAppBarTextColor(),
+    var loginButton = BlocBuilder(
+      bloc: profileBloc,
+      builder: (context, Profile state) {
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(30.0, 10, 30.0, 10),
+          child: RaisedButton(
+            elevation: 0,
+            highlightElevation: 0,
+            shape: OutlineInputBorder(
+              borderSide: BorderSide(
+                color: interfaceData.getAppBarTextColor(),
+              ),
+            ),
+            onPressed: () {
+              print("login button pressed");
+              print("try login with $email and $password");
+              updateLoginBody(email, password);
+              tryLogin().then((result) {
+                setState(() {
+                  if (result.message == "Auth successful") {
+                    token = result.token;
+                    state.token = result.token;
+                    print(result.token);
+                    getUserData().then((result2){
+                      //TODO: hier noch mit der Itemliste erweitern
+                      setState(() {
+                        state.username = result2.name;
+                        state.email = result2.email;
+                        state.id = result2.id;
+                      });
+                    });
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => HomePage()));
+                  }
+                });
+              });
+            },
+            color: interfaceData.getAppBarBackgroundColor(),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(26.0, 16, 26.0, 16),
+              child: Text(
+                "Login",
+                style: TextStyle(
+                    color: interfaceData.getContainerColor(), fontSize: 18),
+              ),
+            ),
           ),
-        ),
-        onPressed: () {
-          print("login button pressed");
-          print("try login with $email and $password");
-          updateLoginBody(email, password);
-          tryLogin().then((result) {
-            setState(() {
-              if (result.message == "Auth successful") {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-              }
-            });
-          });
-        },
-        color: interfaceData.getAppBarBackgroundColor(),
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(26.0, 16, 26.0, 16),
-          child: Text(
-            "Login",
-            style: TextStyle(
-                color: interfaceData.getContainerColor(), fontSize: 18),
-          ),
-        ),
-      ),
+        );
+      },
     );
 
     var registerButton = Padding(
@@ -281,6 +329,22 @@ class Login {
     return Login(
       message: json['message'],
       token: json['token'],
+    );
+  }
+}
+
+class User {
+  final String name;
+  final String email;
+  final String id;
+
+  User({this.name, this.email, this.id});
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      name: json['name'],
+      email: json['email'],
+      id: json['id'],
     );
   }
 }
