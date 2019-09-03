@@ -14,6 +14,10 @@ class CardListBloc extends Bloc<CardListEvent, CardListState> {
     dispatch(AddCard(item));
   }
 
+  onRemoveAllCards(){
+    dispatch(RemoveAllCards());
+  }
+
   @override
   CardListState get initialState => CardListState.initial();
 
@@ -27,6 +31,8 @@ class CardListBloc extends Bloc<CardListEvent, CardListState> {
       //print(currentState.cardList.length);
       currentState.cardList.add(event.card);
       yield CardListState(currentState.cardList);
+    }else if(event is RemoveAllCards){
+      currentState.cardList = [];
     }
   }
   

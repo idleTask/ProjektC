@@ -18,7 +18,8 @@ class CardUi extends StatelessWidget {
       semanticContainer: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Image.asset(
-        m0mentCard.currentState.getImg(),
+        "lib/src/resources/images/surprised_pikatchu.png",
+        //m0mentCard.currentState.getImg(),
         fit: BoxFit.fill,
       ),
       shape: RoundedRectangleBorder(

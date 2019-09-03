@@ -9,6 +9,7 @@ import 'package:m0ments/src/models/profile_model.dart';
 import 'package:m0ments/src/resources/interfaceData.dart';
 import 'package:m0ments/src/pages/homePage.dart';
 import 'package:http/http.dart' as http;
+import 'package:m0ments/src/resources/network_data.dart';
 
 
 
@@ -22,21 +23,15 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     InterfaceData interfaceData = new InterfaceData();
+    NetworkData networkData = NetworkData();
     ProfileBloc profileBloc = BlocProvider.of<ProfileBloc>(context);
 
     var token = "";
     var email = "";
     var password = "G5lQJ5Sm0f5cupxe";
-    var loginUrl = 'http://localhost:3000/user/login';
+    var loginUrl = networkData.getServerAdress() + "user/login";
     var loginBody = {"email": email, "password": password};
-    var userUrl = 'http://localhost:3000/user';
-
-    Map<String, String> getUserHeader() {
-      return {
-        'Content-type': 'application/json',
-        HttpHeaders.authorizationHeader: 'Bearer ' + token,
-      };
-    }
+    var userUrl = networkData.getServerAdress() + "user";
 
     void updateLoginBody(String email, String password) {
       loginBody = {"email": email, "password": password};
@@ -115,8 +110,8 @@ class LoginPageState extends State<LoginPage> {
     }
 
     Future<User> getUserData() async {
-      print(getUserHeader());
-      final response = await http.get(userUrl, headers: getUserHeader());
+      print(networkData.getAuthorizationHeader(token));
+      final response = await http.get(userUrl, headers: networkData.getAuthorizationHeader(token));
 
       if (response.statusCode == 200) {
         // If server returns an OK response, parse the JSON

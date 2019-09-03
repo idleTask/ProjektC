@@ -6,8 +6,8 @@ class SetUsername extends ProfileEvent{
   SetUsername(this.newUsername);
 }
 
-class setToken extends ProfileEvent{
+class SetToken extends ProfileEvent{
   final String newToken;
 
-  setToken(this.newToken);
+  SetToken(this.newToken);
 }

@@ -7,6 +7,8 @@ class RemoveCard extends CardListEvent {
   RemoveCard(this.card);
 }
 
+class RemoveAllCards extends CardListEvent {}
+
 class AddCard extends CardListEvent {
   M0mentCardBloc card;
   AddCard(this.card);

@@ -3,7 +3,8 @@ class M0mentCard {
   String img;
   String title;
   String descr;
-  int id;
+  String userId;
+  String id;
   int votes;
   bool upvoted;
   bool downvoted;
@@ -24,13 +25,14 @@ class M0mentCard {
   String getImg() => img;
   String getTitle() => title;
   String getDescr() => descr;
-  int getId() => id;
+  String getId() => id;
+  String getUserId() => userId;
   int getVotes() => votes;
   bool isUpvoted() => upvoted;
   bool isDownvoted() => downvoted;
 
   String toString() {
-    return "Img: $img, Title: $title, Describtion: $descr, ID: $id, Votes: $votes, Upvoted: $upvoted, Downvoted: $downvoted, Tags: $tags";
+    return "Img: $img, Title: $title, Describtion: $descr, ID: $id, UserId: $userId, $votes, Upvoted: $upvoted, Downvoted: $downvoted, Tags: $tags";
   }
 
   factory M0mentCard.initial() {
@@ -38,7 +40,8 @@ class M0mentCard {
       ..img = "lib/src/resources/images/surprised_pikatchu.png"
       ..title = "title"
       ..descr = "describtion"
-      ..id = 0
+      ..id = ""
+      ..userId = ""
       ..votes = 0
       ..upvoted = false
       ..downvoted = false

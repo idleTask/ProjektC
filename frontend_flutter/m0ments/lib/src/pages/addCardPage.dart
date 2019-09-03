@@ -51,7 +51,7 @@ class AddCardPageState extends State<AddCardPage> {
               onPressed: () {
                 setState(() {
                   print(_clBloc.currentState.cardList.length);
-                  state.id = _clBloc.currentState.cardList.length;
+                  state.id = _bloc.currentState.id;
                   state.descr = descriptionController.text;
                   state.title = titleController.text;
                   _clBloc.onAddCard(_bloc);
