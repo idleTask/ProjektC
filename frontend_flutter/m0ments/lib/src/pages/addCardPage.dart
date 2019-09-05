@@ -1,11 +1,15 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 import 'package:m0ments/src/blocs/cardList_bloc.dart';
 import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
+import 'package:m0ments/src/blocs/profile_bloc.dart';
 import 'package:m0ments/src/models/m0mentCard_model.dart';
 import 'package:m0ments/src/resources/interfaceData.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:m0ments/src/resources/network_data.dart';
 
 class AddCardPage extends StatefulWidget {
   AddCardPageState createState() => AddCardPageState();
@@ -19,8 +23,30 @@ class AddCardPageState extends State<AddCardPage> {
   File cameraFile;
 
   Widget build(BuildContext context) {
+    NetworkData networkData = NetworkData();
     CardListBloc _clBloc = BlocProvider.of<CardListBloc>(context);
     M0mentCardBloc _bloc = new M0mentCardBloc();
+    ProfileBloc _profileBloc = BlocProvider.of<ProfileBloc>(context);
+
+    File checkFile() {
+      if (galleryFile != null) {
+        return galleryFile;
+      } else if (cameraFile != null) {
+        return cameraFile;
+      }
+    }
+
+    var itemBody = {
+      "title": titleController.text,
+      "description": descriptionController.text,
+      //"itemImage": checkFile()
+    };
+
+    Future<http.Response> addItem() async {
+      return http.post(networkData.getServerAdress() + 'items',
+          headers: networkData.getAuthHeader(_profileBloc.currentState.token),
+          body: itemBody);
+    }
 
     var appBar = AppBar(
       title: Text(
@@ -49,14 +75,16 @@ class AddCardPageState extends State<AddCardPage> {
           builder: (context, M0mentCard state) {
             return FloatingActionButton.extended(
               onPressed: () {
-                setState(() {
+                /*
                   print(_clBloc.currentState.cardList.length);
                   state.id = _bloc.currentState.id;
                   state.descr = descriptionController.text;
                   state.title = titleController.text;
                   _clBloc.onAddCard(_bloc);
-                  Navigator.pop(context);
-                });
+                  */
+                addItem();
+                Navigator.pop(context);
+                ;
               },
               label: Text("Submit"),
               icon: Icon(Icons.check),
@@ -77,11 +105,7 @@ class AddCardPageState extends State<AddCardPage> {
             child: TextField(
               maxLength: 30,
               controller: titleController,
-              onEditingComplete: () {
-                setState(() {
-                  print(titleController.text);
-                });
-              },
+              
               style: TextStyle(fontSize: 17),
               decoration: InputDecoration(
                   border: InputBorder.none, hintText: 'Enter a title.'),
@@ -111,11 +135,6 @@ class AddCardPageState extends State<AddCardPage> {
               decoration: InputDecoration(
                   border: InputBorder.none, hintText: 'Describe your Image.'),
               controller: descriptionController,
-              onEditingComplete: () {
-                setState(() {
-                  print(descriptionController.text);
-                });
-              },
             ),
           ),
           shape: RoundedRectangleBorder(
@@ -173,7 +192,7 @@ class AddCardPageState extends State<AddCardPage> {
               child: RaisedButton(
                 color: _interfaceData.getAppBarBackgroundColor(),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 10.0,8.0,10.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 10.0),
                   child: Text(
                     "Open Camera",
                     style: TextStyle(
@@ -190,11 +209,12 @@ class AddCardPageState extends State<AddCardPage> {
               child: RaisedButton(
                 color: _interfaceData.getAppBarBackgroundColor(),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0, 10.0,8.0,10.0),
+                  padding: const EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 10.0),
                   child: Text(
                     "Open Galery",
                     style: TextStyle(
-                        color: _interfaceData.getAppBarTextColor(), fontSize: 17),
+                        color: _interfaceData.getAppBarTextColor(),
+                        fontSize: 17),
                   ),
                 ),
                 onPressed: imageSelectorGallery,

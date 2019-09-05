@@ -6,10 +6,18 @@ class NetworkData {
   NetworkData();
 
   String getServerAdress() => serverAdress;
-  Map<String, String> getAuthorizationHeader(String token){
+
+  Map<String, String> getAuthHeaderApplicationJson(String token){
     return {
       'Content-type': 'application/json',
         HttpHeaders.authorizationHeader: 'Bearer ' + token,
     };
   }
+
+  Map<String, String> getAuthHeader(String token){
+    return {
+        HttpHeaders.authorizationHeader: 'Bearer ' + token,
+    };
+  }
+
 }

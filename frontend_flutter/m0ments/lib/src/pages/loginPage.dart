@@ -11,8 +11,6 @@ import 'package:m0ments/src/pages/homePage.dart';
 import 'package:http/http.dart' as http;
 import 'package:m0ments/src/resources/network_data.dart';
 
-
-
 class LoginPage extends StatefulWidget {
   const LoginPage();
 
@@ -20,6 +18,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class LoginPageState extends State<LoginPage> {
+  TextEditingController emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     InterfaceData interfaceData = new InterfaceData();
@@ -27,10 +27,9 @@ class LoginPageState extends State<LoginPage> {
     ProfileBloc profileBloc = BlocProvider.of<ProfileBloc>(context);
 
     var token = "";
-    var email = "";
     var password = "G5lQJ5Sm0f5cupxe";
     var loginUrl = networkData.getServerAdress() + "user/login";
-    var loginBody = {"email": email, "password": password};
+    var loginBody = {"email": emailController.text, "password": password};
     var userUrl = networkData.getServerAdress() + "user";
 
     void updateLoginBody(String email, String password) {
@@ -110,8 +109,9 @@ class LoginPageState extends State<LoginPage> {
     }
 
     Future<User> getUserData() async {
-      print(networkData.getAuthorizationHeader(token));
-      final response = await http.get(userUrl, headers: networkData.getAuthorizationHeader(token));
+      print(networkData.getAuthHeaderApplicationJson(token));
+      final response = await http.get(userUrl,
+          headers: networkData.getAuthHeaderApplicationJson(token));
 
       if (response.statusCode == 200) {
         // If server returns an OK response, parse the JSON
@@ -152,11 +152,7 @@ class LoginPageState extends State<LoginPage> {
             hintColor: interfaceData.getContainerColor(),
             highlightColor: interfaceData.getHighlightGrey()),
         child: TextField(
-          onChanged: (text) {
-            email = text;
-            updateLoginBody(email, password);
-            print(email);
-          },
+          controller: emailController,
           decoration: InputDecoration(
             hintText: "Username",
             border: OutlineInputBorder(),
@@ -180,7 +176,7 @@ class LoginPageState extends State<LoginPage> {
         child: TextField(
           onChanged: (text) {
             password = text;
-            updateLoginBody(email, password);
+            updateLoginBody(emailController.text, password);
             print(password);
           },
           decoration: InputDecoration(
@@ -210,15 +206,16 @@ class LoginPageState extends State<LoginPage> {
             ),
             onPressed: () {
               print("login button pressed");
-              print("try login with $email and $password");
-              updateLoginBody(email, password);
+              print(
+                  "try login with " + emailController.text + " and $password");
+              updateLoginBody(emailController.text, password);
               tryLogin().then((result) {
                 setState(() {
                   if (result.message == "Auth successful") {
                     token = result.token;
                     state.token = result.token;
                     print(result.token);
-                    getUserData().then((result2){
+                    getUserData().then((result2) {
                       //TODO: hier noch mit der Itemliste erweitern
                       setState(() {
                         state.username = result2.name;

@@ -41,7 +41,7 @@ class HomePageState extends State<HomePage> {
           _profileBloc.currentState.token);
       final response = await http.get(_networkData.getServerAdress() + "items",
           headers: _networkData
-              .getAuthorizationHeader(_profileBloc.currentState.token));
+              .getAuthHeaderApplicationJson(_profileBloc.currentState.token));
 
       if (response.statusCode == 200) {
         print("refresh Ok");
@@ -49,29 +49,30 @@ class HomePageState extends State<HomePage> {
         return Items.fromJson(json.decode(response.body));
       } else {
         // If that response was not OK, throw an error.
-        throw Exception('Failed to load post');
+        //throw Exception('Failed to load post');
       }
     }
 
     //refresh Page with data
     Future<Items> _refresh() async {
       return _getItems().then((result) {
-        setState(() {
-          _clBloc.onRemoveAllCards();
-          _clBloc.currentState.count = result.count;
+        _clBloc.onRemoveAllCards();
+        _clBloc.currentState.count = result.count;
 
-          for (int i = 0; i < result.items.length; i++) {
-            M0mentCardBloc tempBloc = M0mentCardBloc();
-            tempBloc.currentState.id = result.items[i].id;
-            tempBloc.currentState.userId = result.items[i].userId;
-            tempBloc.currentState.title = result.items[i].title;
-            tempBloc.currentState.descr = result.items[i].description;
-            //tempBloc.currentState.img = result.items[i].itemImage;
-            _clBloc.onAddCard(tempBloc);
-          }
-        });
+        for (int i = 0; i < result.items.length; i++) {
+          M0mentCardBloc tempBloc = M0mentCardBloc();
+          tempBloc.currentState.id = result.items[i].id;
+          tempBloc.currentState.userId = result.items[i].userId;
+          tempBloc.currentState.title = result.items[i].title;
+          tempBloc.currentState.descr = result.items[i].description;
+          //TODO: Bilder müssen noch heruntergeladen werden!
+          //tempBloc.currentState.img = result.items[i].itemImage;
+          _clBloc.onAddCard(tempBloc);
+        }
       });
     }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => _refresh());
 
     var _appBody = BlocBuilder(
       bloc: _clBloc,

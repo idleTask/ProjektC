@@ -5,6 +5,7 @@ import 'package:m0ments/src/pages/homePage.dart';
 import 'package:m0ments/src/pages/loginPage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m0ments/src/blocs/cardList_bloc.dart';
+import 'package:m0ments/src/pages/profilePage.dart';
 
 void main() => runApp(M0mentsApp());
 
@@ -22,6 +23,7 @@ class M0mentsApp extends StatelessWidget {
         routes: {
           "LoginPage": (context) => LoginPage(),
           "HomePage": (context) => HomePage(),
+          "ProfilePage": (context) => ProfilePage(),
         },
         debugShowCheckedModeBanner: false,
         title: 'Colorspace',
