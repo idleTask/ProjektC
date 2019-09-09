@@ -1,9 +1,12 @@
+import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
+
 class Profile{
   String username;
   String email;
   String password;
   String token;
   String id;
+  List<M0mentCardBloc> cardList = new List<M0mentCardBloc>();
 
   Profile._();
   Profile(
@@ -12,6 +15,7 @@ class Profile{
     this.password,
     this.token,
     this.id,
+    this.cardList,
   );
 
   String getUsername() => username;
@@ -21,7 +25,7 @@ class Profile{
   String getId() => id;
 
   String toString() {
-    return "Username: $username, Email: $email, Password: $password, Token: $token, id: $id,";
+    return "Username: $username, Email: $email, Password: $password, Token: $token, Id: $id, CardList: $cardList";
   }
 
   factory Profile.initial() {

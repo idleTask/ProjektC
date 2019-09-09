@@ -1,40 +1,37 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:m0ments/src/blocs/profile_bloc.dart';
 import 'package:m0ments/src/resources/interfaceData.dart';
-import 'package:m0ments/src/ui/appBar_ui.dart';
+import 'package:m0ments/src/blocs/profile_bloc.dart';
 import 'package:m0ments/src/ui/card_ui.dart';
-import 'package:m0ments/src/ui/textcard.dart';
 
-class ProfilePage extends StatefulWidget {
+class ProfileItemsPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return ProfilePageState();
+    return ProfileItemsPageState();
   }
 }
 
-class ProfilePageState extends State<ProfilePage> {
+class ProfileItemsPageState extends State<ProfileItemsPage> {
   InterfaceData _interfaceData = InterfaceData();
 
   @override
   Widget build(BuildContext context) {
     ProfileBloc _profileBloc = BlocProvider.of<ProfileBloc>(context);
 
-    var _appBody = ListView(
-      children: <Widget>[
-        TextCard("Username: " + _profileBloc.currentState.username),
-        TextCard("E-Mail Adress: " + _profileBloc.currentState.email),
-        /*GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3),
-                itemCount: _profileBloc.currentState.cardList.length,
-                itemBuilder: (BuildContext context, int i) {
-                  return CardUi(m0mentCard: _profileBloc.currentState.cardList[i],);
-                },
-              ),*/
-      ],
-    );
+    Widget _appBody =  
+      GridView.builder(
+        gridDelegate:
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+        itemCount: _profileBloc.currentState.cardList.length,
+        itemBuilder: (BuildContext context, int i) {
+          return CardUi(
+            m0mentCard:
+                _profileBloc.currentState.cardList[i], /* clBloc: _clBloc*/
+          );
+        },
+      );
+    
 
     return Scaffold(
       appBar: AppBar(

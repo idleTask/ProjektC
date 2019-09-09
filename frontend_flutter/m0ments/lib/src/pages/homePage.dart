@@ -13,6 +13,7 @@ import 'package:m0ments/src/ui/card_ui.dart';
 import 'package:m0ments/src/ui/drawer_ui.dart';
 import 'package:m0ments/src/resources/interfaceData.dart';
 import 'package:m0ments/src/resources/network_data.dart';
+import 'package:m0ments/src/resources/pojo_Items.dart';
 
 class HomePage extends StatefulWidget {
   final String title = "m0ments";
@@ -49,7 +50,7 @@ class HomePageState extends State<HomePage> {
         return Items.fromJson(json.decode(response.body));
       } else {
         // If that response was not OK, throw an error.
-        //throw Exception('Failed to load post');
+        throw Exception();
       }
     }
 
@@ -65,7 +66,7 @@ class HomePageState extends State<HomePage> {
           tempBloc.currentState.userId = result.items[i].userId;
           tempBloc.currentState.title = result.items[i].title;
           tempBloc.currentState.descr = result.items[i].description;
-          //TODO: Bilder müssen noch heruntergeladen werden!
+          //TODO: Bilder hinzufügen!
           //tempBloc.currentState.img = result.items[i].itemImage;
           _clBloc.onAddCard(tempBloc);
         }
@@ -86,7 +87,9 @@ class HomePageState extends State<HomePage> {
                     crossAxisCount: 3),
                 itemCount: _clBloc.currentState.cardList.length,
                 itemBuilder: (BuildContext context, int i) {
-                  return CardUi(m0mentCard: state.cardList[i], clBloc: _clBloc);
+                  return CardUi(
+                    m0mentCard: state.cardList[i], /* clBloc: _clBloc*/
+                  );
                 },
               ),
             ));
@@ -115,42 +118,6 @@ class HomePageState extends State<HomePage> {
       ),
       floatingActionButton: floatingActionButton,
       body: _appBody,
-    );
-  }
-}
-
-class Items {
-  final int count;
-  final List<Item> items;
-
-  Items({this.count, this.items});
-
-  factory Items.fromJson(Map<String, dynamic> json) {
-    var list = json['items'] as List;
-    List<Item> itemsList = list.map((i) => Item.fromJson(i)).toList();
-    return Items(
-      count: json['count'],
-      items: itemsList,
-    );
-  }
-}
-
-class Item {
-  final String id;
-  final String title;
-  final String description;
-  final String itemImage;
-  final String userId;
-
-  Item({this.id, this.title, this.description, this.itemImage, this.userId});
-
-  factory Item.fromJson(Map<String, dynamic> json) {
-    return Item(
-      id: json['id'],
-      title: json['title'],
-      description: json['description'],
-      itemImage: json['itemImage'],
-      userId: json['userId'],
     );
   }
 }

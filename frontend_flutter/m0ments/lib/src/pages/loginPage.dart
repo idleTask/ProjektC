@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m0ments/src/blocs/profile_bloc.dart';
 import 'package:m0ments/src/models/profile_model.dart';
+import 'package:m0ments/src/pages/registerPage.dart';
 import 'package:m0ments/src/resources/interfaceData.dart';
 import 'package:m0ments/src/pages/homePage.dart';
 import 'package:http/http.dart' as http;
@@ -221,6 +221,17 @@ class LoginPageState extends State<LoginPage> {
                         state.username = result2.name;
                         state.email = result2.email;
                         state.id = result2.id;
+                        /*for (int i = 0; i < result2.items.length; i++) {
+                          M0mentCardBloc tempBloc = M0mentCardBloc();
+                          tempBloc.currentState.id = result2.items[i].id;
+                          tempBloc.currentState.userId =
+                              result2.items[i].userId;
+                          tempBloc.currentState.title = result2.items[i].title;
+                          tempBloc.currentState.descr =
+                              result2.items[i].description;*/
+                        //TODO: Bilder hinzufügen!
+                        //tempBloc.currentState.img = result.items[i].itemImage;
+                        //profileBloc.onAddCard(tempBloc);
                       });
                     });
                     Navigator.push(context,
@@ -254,7 +265,7 @@ class LoginPageState extends State<LoginPage> {
           ),
         ),
         onPressed: () {
-          print("register");
+          Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterPage()));
         },
         color: interfaceData.getAppBarBackgroundColor(),
         child: Padding(
@@ -325,18 +336,28 @@ class Login {
   }
 }
 
+//TODO: Kommentare entfernen für ProfilItems
 class User {
   final String name;
   final String email;
   final String id;
+  //final List<Item> items;
 
-  User({this.name, this.email, this.id});
+  User({
+    this.name,
+    this.email,
+    this.id,
+    /*this.items*/
+  });
 
   factory User.fromJson(Map<String, dynamic> json) {
+    /*var list = json['items'] as List;
+    List<Item> itemsList = list.map((i) => Item.fromJson(i)).toList();*/
     return User(
       name: json['name'],
       email: json['email'],
       id: json['id'],
+      //items: itemsList,
     );
   }
 }

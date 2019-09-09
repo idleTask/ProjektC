@@ -21,6 +21,7 @@ class AddCardPageState extends State<AddCardPage> {
   final descriptionController = TextEditingController();
   File galleryFile;
   File cameraFile;
+  List<int> galleryFileBytes;
 
   Widget build(BuildContext context) {
     NetworkData networkData = NetworkData();
@@ -28,24 +29,35 @@ class AddCardPageState extends State<AddCardPage> {
     M0mentCardBloc _bloc = new M0mentCardBloc();
     ProfileBloc _profileBloc = BlocProvider.of<ProfileBloc>(context);
 
-    File checkFile() {
-      if (galleryFile != null) {
-        return galleryFile;
-      } else if (cameraFile != null) {
-        return cameraFile;
-      }
+    File checkFile() {/*
+      var fileContentBase64;
+      try{
+        fileContentBase64 = base64.encode(galleryFileBytes);
+      }catch(e){
+        print("object");
+      }*/
+      
+      return galleryFile;
     }
 
     var itemBody = {
       "title": titleController.text,
       "description": descriptionController.text,
-      //"itemImage": checkFile()
+      "itemImage": galleryFile,
     };
 
-    Future<http.Response> addItem() async {
-      return http.post(networkData.getServerAdress() + 'items',
+    Future<FileBack> addItem() async {
+      final response = await http.post(networkData.serverAdress + "items",
           headers: networkData.getAuthHeader(_profileBloc.currentState.token),
           body: itemBody);
+
+      if (response.statusCode == 200) {
+        print("HALLELUYA");
+        return FileBack.fromJson(json.decode(response.body));
+      } else {
+        // If that response was not OK, throw an error.
+        throw Exception('Failed to load post');
+      }
     }
 
     var appBar = AppBar(
@@ -84,7 +96,6 @@ class AddCardPageState extends State<AddCardPage> {
                   */
                 addItem();
                 Navigator.pop(context);
-                ;
               },
               label: Text("Submit"),
               icon: Icon(Icons.check),
@@ -105,7 +116,6 @@ class AddCardPageState extends State<AddCardPage> {
             child: TextField(
               maxLength: 30,
               controller: titleController,
-              
               style: TextStyle(fontSize: 17),
               decoration: InputDecoration(
                   border: InputBorder.none, hintText: 'Enter a title.'),
@@ -178,6 +188,7 @@ class AddCardPageState extends State<AddCardPage> {
       galleryFile = await ImagePicker.pickImage(
         source: ImageSource.gallery,
       );
+      galleryFileBytes = galleryFile.readAsBytesSync();
       setState(() {});
     }
 
@@ -240,6 +251,22 @@ class AddCardPageState extends State<AddCardPage> {
       appBar: appBar,
       body: body,
       floatingActionButton: floatingActionButton,
+    );
+  }
+}
+
+class FileBack {
+  final String title;
+  final String description;
+  final File itemImage;
+
+  FileBack({this.title, this.description, this.itemImage});
+
+  factory FileBack.fromJson(Map<String, dynamic> json) {
+    return FileBack(
+      title: json['title'],
+      description: json['description'],
+      itemImage: json['itemImage'],
     );
   }
 }

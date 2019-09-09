@@ -4,12 +4,12 @@ import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
 import 'package:m0ments/src/pages/detailedPage.dart';
 
 class CardUi extends StatelessWidget {
-  final CardListBloc clBloc;
+  //final CardListBloc clBloc;
   final M0mentCardBloc m0mentCard;
 
   const CardUi({
     this.m0mentCard,
-    this.clBloc,
+    //this.clBloc,
   });
 
   Widget build(BuildContext context) {
