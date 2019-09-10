@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+const checkAuth = require('./api/middleware/check-auth');
 
 const itemsRoutes = require('./api/routes/items');
 const ordersRoutes = require('./api/routes/orders');
@@ -14,7 +15,7 @@ mongoose.connect('mongodb://idletask:YMAFsccKOxbAg0hK@cluster0-shard-00-00-orsp9
 });
 
 app.use(morgan('dev'));
-app.use('/uploads', express.static('uploads'));
+app.use('/uploads', checkAuth, express.static('uploads'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
