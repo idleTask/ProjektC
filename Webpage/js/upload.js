@@ -1,6 +1,6 @@
-// Image Upload Request Function
-var url = "http://127.0.0.1";
-var port = 3000;
+
+var url = "https://pi.idletask.de";
+var port = "";
 var allItems;
 
 function onUploadSubmit() {
@@ -17,14 +17,15 @@ function onUploadSubmit() {
 	formData.append('description', description);
 	formData.append('itemImage', $('#file')[0].files[0]);
 	$.ajax({
-		url: url + ":" + port + "/items", 					// Request URL							//!! Fehlt noch !!
-		type: "POST",             	// Request Type	
+		url: url + port + "/items", 					// Request URL							//!! Fehlt noch !!
+		type: "POST",            	// Request Type	
 		data: formData, 	// Data
 		contentType: false,       	// Content     
 		processData: false,
 		headers: {
 			"Authorization": jwtString,
 		},
+		crossDomain: true,
 		success: function (data)   	//  function called when succeded
 		{
 			console.log('success');
@@ -66,19 +67,19 @@ function imageIsLoaded(e) {
 };
 
 function getCookie(cname) {
-  var name = cname + "=";
-  var decodedCookie = decodeURIComponent(document.cookie);
-  var ca = decodedCookie.split(';');
-  for(var i = 0; i <ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
+	var name = cname + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return "";
 }
 
 function getAllItems() {
@@ -86,11 +87,12 @@ function getAllItems() {
 	var jwtString = getCookie('jwt');
 	console.log(jwtString);
 	$.ajax({
-		url: url + ":" + port + "/items", 					// Request URL							//!! Fehlt noch !!
+		url: url + port + "/items", 					// Request URL							//!! Fehlt noch !!
 		type: "get",
 		headers: {
 			"Authorization": jwtString,
 		},
+		dataType: 'json',
 		success: function (data)   	//  function called when succeded
 		{
 			console.log('success');
@@ -116,7 +118,7 @@ function displayItems(data) {
 	var items = data.items;
 	items.forEach(function (item, index) {
 
-		var imageSrc = "'" + url + ":" + port + "/" + item.itemImage + "'";
+		var imageSrc = "'" + url + "/" + item.itemImage + "'";
 
 		$('#images').append("<div class=images><img class= 'displayImages' src=" + imageSrc + "onclick='openModal(id)' height='200' width='200' id='" + index + "'></div>")
 
@@ -135,8 +137,9 @@ function onLogin() {
 	}
 	console.log(data);
 	$.ajax({
-		url: url + ":" + port + "/user/login", 					// Request URL							//!! Fehlt noch !!
+		url: url + port + "/user/login", 					// Request URL							//!! Fehlt noch !!
 		type: "post",
+		crossDomain: true,
 		data: data,
 		success: function (data)   	//  function called when succeded
 		{
@@ -165,12 +168,12 @@ function onRegister() {
 
 	var data = {
 		"name": name.value,
-		"email":	email.value,
-		"password":	password.value
+		"email": email.value,
+		"password": password.value
 	}
-	
+
 	$.ajax({
-		url: url + ":" + port + "/user/signup", 					// Request URL							//!! Fehlt noch !!
+		url: url + port + "/user/signup", 					// Request URL							//!! Fehlt noch !!
 		type: "post",
 		data: data,
 		success: function (data)   	//  function called when succeded

@@ -7,8 +7,10 @@ const itemsRoutes = require('./api/routes/items');
 const ordersRoutes = require('./api/routes/orders');
 const userRoutes = require('./api/routes/user');
 
-mongoose.connect('mongodb://idletask:' + process.env.MONGO_ATLAS_PW + '@cluster0-shard-00-00-orsp9.mongodb.net:27017,cluster0-shard-00-01-orsp9.mongodb.net:27017,cluster0-shard-00-02-orsp9.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority', {
+mongoose.connect('mongodb://idletask:YMAFsccKOxbAg0hK@cluster0-shard-00-00-orsp9.mongodb.net:27017,cluster0-shard-00-01-orsp9.mongodb.net:27017,cluster0-shard-00-02-orsp9.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority', {
   useNewUrlParser: true, useCreateIndex: true,
+}).catch(err => {
+  console.log('could not connect to mongodb');
 });
 
 app.use(morgan('dev'));
@@ -27,7 +29,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/items', itemsRoutes);
-app.use('/orders', ordersRoutes);
+// app.use('/orders', ordersRoutes);
 app.use('/user', userRoutes);
 
 app.use((req, res, next) => {
