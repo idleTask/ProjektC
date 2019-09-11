@@ -19,7 +19,7 @@ class TextCard extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(8.0, 20, 8.0, 20),
           child: Text(
             descrText,
-            style: TextStyle(fontSize: 17),
+            style: TextStyle(fontSize: 17, textBaseline: TextBaseline.alphabetic),
           ),
         ),
       ),

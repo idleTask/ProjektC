@@ -101,13 +101,14 @@ class DetailedPageState extends State<DetailedPage> {
                       ),
                     ],
                   ),
-                  Padding(
+                  //TODO: überlegen was man hier macht
+                  /*Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text(
-                      "ID: " + state.id.toString(),
-                      style: TextStyle(fontSize: 17),
+                      "ID " + state.id.toString(),
+                      style: TextStyle(fontSize: 12),
                     ),
-                  ),
+                  ),*/
                 ],
               ),
             ),

@@ -174,6 +174,7 @@ class LoginPageState extends State<LoginPage> {
           hintColor: interfaceData.getContainerColor(),
         ),
         child: TextField(
+          obscureText: true,
           onChanged: (text) {
             password = text;
             updateLoginBody(emailController.text, password);

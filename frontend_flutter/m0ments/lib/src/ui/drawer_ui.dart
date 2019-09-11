@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m0ments/src/blocs/profile_bloc.dart';
+import 'package:m0ments/src/pages/impressumPage.dart';
 import 'package:m0ments/src/pages/profileItemsPage.dart';
 import 'package:m0ments/src/pages/profilePage.dart';
 import 'package:m0ments/src/resources/interfaceData.dart';
@@ -30,13 +31,20 @@ class DrawerUi extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.photo),
               title: _interfaceData.coloredText('My Posts'),
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => ProfileItemsPage()));
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProfileItemsPage()));
               },
             ),
             ListTile(
               leading: Icon(Icons.info),
               title: _interfaceData.coloredText('Impressum'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ImpressumPage()));
+              },
             ),
             ListTile(
               leading: Icon(Icons.close),
