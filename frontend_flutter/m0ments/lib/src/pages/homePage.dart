@@ -35,18 +35,12 @@ class HomePageState extends State<HomePage> {
         new GlobalKey<RefreshIndicatorState>();
 
     Future<Items> _getItems() async {
-      print("trying refresh with:  " +
-          _networkData.getServerAdress() +
-          "items" +
-          "  and   " +
-          _profileBloc.currentState.token);
       final response = await http.get(_networkData.getServerAdress() + "items",
           headers: _networkData
               .getAuthHeaderApplicationJson(_profileBloc.currentState.token));
 
       if (response.statusCode == 200) {
         print("refresh Ok");
-        print(json.decode(response.body));
         return Items.fromJson(json.decode(response.body));
       } else {
         // If that response was not OK, throw an error.

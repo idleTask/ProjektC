@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -29,31 +31,35 @@ class AddCardPageState extends State<AddCardPage> {
     M0mentCardBloc _bloc = new M0mentCardBloc();
     ProfileBloc _profileBloc = BlocProvider.of<ProfileBloc>(context);
 
-    File checkFile() {/*
+    File checkFile() {
+      /*
       var fileContentBase64;
       try{
         fileContentBase64 = base64.encode(galleryFileBytes);
       }catch(e){
         print("object");
       }*/
-      
+
       return galleryFile;
     }
 
-    var itemBody = {
+    FormData itemBody = new FormData.from({
       "title": titleController.text,
       "description": descriptionController.text,
       "itemImage": galleryFile,
-    };
+    });
 
-    Future<FileBack> addItem() async {
-      final response = await http.post(networkData.serverAdress + "items",
-          headers: networkData.getAuthHeader(_profileBloc.currentState.token),
-          body: itemBody);
+    Dio dio = new Dio();
+    dio.options.headers = networkData.getAuthHeader(_profileBloc.currentState.token);
+
+    addItem() async {
+      final response = await dio.post(networkData.getServerAdress() +"items", data: itemBody, );
 
       if (response.statusCode == 200) {
         print("HALLELUYA");
-        return FileBack.fromJson(json.decode(response.body));
+        print(response.data);
+        print(response.headers);
+        print(response.request);
       } else {
         // If that response was not OK, throw an error.
         throw Exception('Failed to load post');
