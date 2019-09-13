@@ -135,24 +135,34 @@ body {
     width:70%;
     background-color: rgba(88, 88, 88, 0.8);
     display: block;
-    margin-left: 10%;
+    margin-left: 5%;
     margin-top: 5%;
 	
-	
+	padding: 25px;
+	text-align:right ;
 	
 }
-.modalContent img
-{
-    float:left;
-    margin-right: 2%;
-	 margin-left: 2%;
-    width: auto;      /*800px; */
-   height: auto;	  /* 800px;*/
-   
+
+.wrapper {
 	min-width: 1080px; 
 	 max-width: 1080px;
 	 min-height: 566px;
 	 max-height: 1350px;
+	
+}
+.modalContent img
+{
+    
+    float: left;
+    margin-right: 2%;
+    margin-left: 2%;
+    width: auto;
+    height: auto;
+    /* min-width: 30vw; */
+    max-width: 50vw;
+    /* min-height: 566px; */
+    max-height: 70vh;
+
 }
 .comments
 {
