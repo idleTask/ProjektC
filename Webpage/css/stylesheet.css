@@ -112,18 +112,7 @@ body {
     float:left;
 }
 
-.description {
-	padding: 5px;
-	display: inline-block; 
-	
-}
 
-.imagescaling {
-	 min-width: 1080px; 
-	 max-width: 1080px;
-	 min-height: 566px;
-	 max-height: 1350px;
-}
 
 .modal 
 {	
@@ -143,24 +132,27 @@ body {
 .modalContent
 {
     overflow: hidden;
-    /*width:75%;*/
+    width:70%;
     background-color: rgba(88, 88, 88, 0.8);
     display: block;
     margin-left: 10%;
     margin-top: 5%;
 	
-	 min-width: 1080px; 
-	 max-width: 1080px;
-	 min-height: 566px;
-	 max-height: 1350px;
+	
 	
 }
 .modalContent img
 {
     float:left;
     margin-right: 2%;
+	 margin-left: 2%;
     width: auto;      /*800px; */
    height: auto;	  /* 800px;*/
+   
+	min-width: 1080px; 
+	 max-width: 1080px;
+	 min-height: 566px;
+	 max-height: 1350px;
 }
 .comments
 {
