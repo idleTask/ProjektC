@@ -111,8 +111,24 @@ body {
 {
     float:left;
 }
+
+.description {
+	padding: 5px;
+	display: inline-block; 
+	
+}
+
+.imagescaling {
+	 min-width: 1080px; 
+	 max-width: 1080px;
+	 min-height: 566px;
+	 max-height: 1350px;
+}
+
 .modal 
-{
+{	
+	
+	
     display: none;
     position: fixed;
     z-index: 1;
