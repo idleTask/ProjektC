@@ -85,7 +85,6 @@ function getCookie(cname) {
 function getAllItems() {
 	var x = document.cookie;
 	var jwtString = getCookie('jwt');
-	console.log(jwtString);
 	$.ajax({
 		url: url + port + "/items", 					// Request URL							//!! Fehlt noch !!
 		type: "get",
@@ -115,14 +114,59 @@ $(document).ready(function () {
 });
 
 function displayItems(data) {
+	var jwtString = getCookie('jwt');
 	var items = data.items;
 	items.forEach(function (item, index) {
-
-		var imageSrc = "'" + url + "/" + item.itemImage + "'";
-
-		$('#images').append("<div class=images><img class= 'displayImages' src=" + imageSrc + "onclick='openModal(id)' height='200' width='200' id='" + index + "'></div>")
-
+		$.ajax({
+			url: url + port + '/' + item.itemImage, 					// Request URL							//!! Fehlt noch !!
+			type: "get",
+			contentType: 'image/png',
+			headers: {
+				"Authorization": jwtString,
+			},
+			mimeType: "text/plain; charset=x-user-defined",
+			success: function (data)   	//  function called when succeded
+			{
+				console.log('success');
+				var base64Image = base64Encode(data);
+				$('#images').append("<div class=images><img class= 'displayImages' src='data:image;base64," + base64Image + "' onclick='openModal(id)' height='200' width='200' id='" + index + "'></div>");
+			},
+			error: function (XMLHttpRequest, textStatus, errorThrown) {
+				console.log(XMLHttpRequest);
+				console.log(errorThrown);
+				console.log('fehler get images');
+				// window.location.href = 'Register-loginpage.html';
+			}
+		});
 	});
+}
+
+function base64Encode(str) {
+	var CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+	var out = "", i = 0, len = str.length, c1, c2, c3;
+	while (i < len) {
+			c1 = str.charCodeAt(i++) & 0xff;
+			if (i == len) {
+					out += CHARS.charAt(c1 >> 2);
+					out += CHARS.charAt((c1 & 0x3) << 4);
+					out += "==";
+					break;
+			}
+			c2 = str.charCodeAt(i++);
+			if (i == len) {
+					out += CHARS.charAt(c1 >> 2);
+					out += CHARS.charAt(((c1 & 0x3)<< 4) | ((c2 & 0xF0) >> 4));
+					out += CHARS.charAt((c2 & 0xF) << 2);
+					out += "=";
+					break;
+			}
+			c3 = str.charCodeAt(i++);
+			out += CHARS.charAt(c1 >> 2);
+			out += CHARS.charAt(((c1 & 0x3) << 4) | ((c2 & 0xF0) >> 4));
+			out += CHARS.charAt(((c2 & 0xF) << 2) | ((c3 & 0xC0) >> 6));
+			out += CHARS.charAt(c3 & 0x3F);
+	}
+	return out;
 }
 
 function onLogin() {
@@ -139,7 +183,6 @@ function onLogin() {
 	$.ajax({
 		url: url + port + "/user/login", 					// Request URL							//!! Fehlt noch !!
 		type: "post",
-		crossDomain: true,
 		data: data,
 		success: function (data)   	//  function called when succeded
 		{

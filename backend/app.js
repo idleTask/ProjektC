@@ -15,7 +15,6 @@ mongoose.connect('mongodb://idletask:YMAFsccKOxbAg0hK@cluster0-shard-00-00-orsp9
 });
 
 app.use(morgan('dev'));
-app.use('/uploads', checkAuth, express.static('uploads'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
@@ -29,6 +28,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/uploads', checkAuth, express.static('uploads'));
 app.use('/items', itemsRoutes);
 // app.use('/orders', ordersRoutes);
 app.use('/user', userRoutes);
