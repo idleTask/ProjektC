@@ -143,11 +143,17 @@ body {
 .modalContent
 {
     overflow: hidden;
-    width:75%;
+    /*width:75%;*/
     background-color: rgba(88, 88, 88, 0.8);
     display: block;
     margin-left: 10%;
     margin-top: 5%;
+	
+	 min-width: 1080px; 
+	 max-width: 1080px;
+	 min-height: 566px;
+	 max-height: 1350px;
+	
 }
 .modalContent img
 {
