@@ -14,6 +14,10 @@ import 'package:m0ments/src/resources/interfaceData.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:m0ments/src/resources/network_data.dart';
 import 'package:path/path.dart';
+import 'package:path/path.dart';
+import 'package:async/async.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
 
 class AddCardPage extends StatefulWidget {
   AddCardPageState createState() => AddCardPageState();
@@ -37,22 +41,15 @@ class AddCardPageState extends State<AddCardPage> {
     dio.options.headers =
         networkData.getAuthHeader(_profileBloc.currentState.token);
 
-    FormData formdata = new FormData(); // just like JS
+    FormData formdata = new FormData();
 
-/*
-    FormData formData = new FormData.from({
-      "title": titleController.text,
-      "description": descriptionController.text,
-      "itemImage": UploadFileInfo(galleryFile, "upload.txt"),
-    });
-*/
     //Upload Versuch mit dio
-    addItem() async {
+    Future addItem() async {
       formdata.add("title", titleController.text);
       formdata.add("description", descriptionController.text);
       formdata.add(
           "photos", UploadFileInfo(galleryFile, basename(galleryFile.path)));
-
+      print(galleryFile.path);
       dio
           .post(networkData.serverAdress + "items",
               data: formdata,
@@ -62,22 +59,58 @@ class AddCardPageState extends State<AddCardPage> {
                   method: 'POST',
                   responseType: ResponseType.json // or ResponseType.JSON
                   ))
-          .then((response) => print(response))
+          .then((response) {
+            return FileBack.fromJson(json.decode(response.data)); 
+          })
           .catchError((error) => print(error));
     }
 
     //anderer Upload Versuch
     uploadFileUriMultipartRequest() async {
-    var postUri = Uri.parse(networkData.serverAdress + "items");
-    var request = new http.MultipartRequest("POST", postUri);
-    request.headers.addAll(networkData.getAuthHeader(_profileBloc.currentState.token));
-    request.fields['title'] = titleController.text;
-    request.files.add(new http.MultipartFile.fromBytes('file', await File.fromUri(galleryFile.uri).readAsBytes(), contentType: MediaType('image', 'jpeg')));
+      var postUri = Uri.parse(networkData.serverAdress + "items");
+      var request = new http.MultipartRequest("POST", postUri);
+      request.headers
+          .addAll(networkData.getAuthHeader(_profileBloc.currentState.token));
+      request.fields['title'] = titleController.text;
+      request.files.add(new http.MultipartFile.fromBytes(
+          'file', await File.fromUri(galleryFile.uri).readAsBytes(),
+          contentType: MediaType('image', 'jpeg')));
 
-    request.send().then((response) {
-      if (response.statusCode == 200) print("Uploaded!");
-    });
-  }
+      request.send().then((response) {
+        if (response.statusCode == 200) print("Uploaded!");
+      });
+    }
+
+    //dritter Versuch
+    upload(File imageFile) async {
+      print("try upload");
+      var stream =
+          new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+      var length = await imageFile.length();
+
+      var uri = Uri.parse(networkData.serverAdress + "items");
+
+      var request = new http.MultipartRequest("POST", uri);
+
+      request.headers
+          .addAll(networkData.getAuthHeader(_profileBloc.currentState.token));
+      var multipartFile = new http.MultipartFile('file', stream, length,
+          filename: basename(imageFile.path));
+      //contentType: new MediaType('image', 'png'));
+
+      request.files.add(multipartFile);
+      var response = await request.send();
+      if (response.statusCode == 200) {
+        print(response.statusCode);
+      } else {
+        print(response.statusCode);
+        throw Exception();
+      }
+
+      response.stream.transform(utf8.decoder).listen((value) {
+        print(value);
+      });
+    }
 
     var appBar = AppBar(
       title: Text(
@@ -207,6 +240,7 @@ class AddCardPageState extends State<AddCardPage> {
       galleryFile = await ImagePicker.pickImage(
         source: ImageSource.gallery,
       );
+
       galleryFileBytes = galleryFile.readAsBytesSync();
       setState(() {});
     }
