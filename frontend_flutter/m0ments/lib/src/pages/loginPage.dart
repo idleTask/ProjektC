@@ -103,6 +103,7 @@ class LoginPageState extends State<LoginPage> {
       } else {
         // If that response was not OK, throw an error.
         print("Login failed");
+        print(response.statusCode);
         _loginFailedAlert();
         //throw Exception(response.body);
       }
@@ -208,7 +209,7 @@ class LoginPageState extends State<LoginPage> {
             onPressed: () {
               print("login button pressed");
               print(
-                  "try login with " + emailController.text + " and $password");
+                  "try login with >" + emailController.text + "< and >$password<");
               updateLoginBody(emailController.text, password);
               tryLogin().then((result) {
                 setState(() {

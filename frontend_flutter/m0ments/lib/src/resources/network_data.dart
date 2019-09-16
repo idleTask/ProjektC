@@ -1,7 +1,7 @@
 import 'dart:io';
 
 class NetworkData {
-  final String serverAdress = "https://pi.idletask.de/";
+  final String serverAdress = "http://localhost:3000/";
 
   NetworkData();
 

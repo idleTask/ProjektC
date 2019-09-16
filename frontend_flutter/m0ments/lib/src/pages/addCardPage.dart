@@ -5,6 +5,7 @@ import 'package:dio/dio.dart' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 import 'package:m0ments/src/blocs/cardList_bloc.dart';
 import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
 import 'package:m0ments/src/blocs/profile_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:m0ments/src/models/m0mentCard_model.dart';
 import 'package:m0ments/src/resources/interfaceData.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:m0ments/src/resources/network_data.dart';
+import 'package:path/path.dart';
 
 class AddCardPage extends StatefulWidget {
   AddCardPageState createState() => AddCardPageState();
@@ -31,40 +33,51 @@ class AddCardPageState extends State<AddCardPage> {
     M0mentCardBloc _bloc = new M0mentCardBloc();
     ProfileBloc _profileBloc = BlocProvider.of<ProfileBloc>(context);
 
-    File checkFile() {
-      /*
-      var fileContentBase64;
-      try{
-        fileContentBase64 = base64.encode(galleryFileBytes);
-      }catch(e){
-        print("object");
-      }*/
+    Dio dio = new Dio();
+    dio.options.headers =
+        networkData.getAuthHeader(_profileBloc.currentState.token);
 
-      return galleryFile;
-    }
+    FormData formdata = new FormData(); // just like JS
 
-    FormData itemBody = new FormData.from({
+/*
+    FormData formData = new FormData.from({
       "title": titleController.text,
       "description": descriptionController.text,
-      "itemImage": galleryFile,
+      "itemImage": UploadFileInfo(galleryFile, "upload.txt"),
     });
-
-    Dio dio = new Dio();
-    dio.options.headers = networkData.getAuthHeader(_profileBloc.currentState.token);
-
+*/
+    //Upload Versuch mit dio
     addItem() async {
-      final response = await dio.post(networkData.getServerAdress() +"items", data: itemBody, );
+      formdata.add("title", titleController.text);
+      formdata.add("description", descriptionController.text);
+      formdata.add(
+          "photos", UploadFileInfo(galleryFile, basename(galleryFile.path)));
 
-      if (response.statusCode == 200) {
-        print("HALLELUYA");
-        print(response.data);
-        print(response.headers);
-        print(response.request);
-      } else {
-        // If that response was not OK, throw an error.
-        throw Exception('Failed to load post');
-      }
+      dio
+          .post(networkData.serverAdress + "items",
+              data: formdata,
+              options: Options(
+                  headers: networkData.getAuthHeaderApplicationJson(
+                      _profileBloc.currentState.token),
+                  method: 'POST',
+                  responseType: ResponseType.json // or ResponseType.JSON
+                  ))
+          .then((response) => print(response))
+          .catchError((error) => print(error));
     }
+
+    //anderer Upload Versuch
+    uploadFileUriMultipartRequest() async {
+    var postUri = Uri.parse(networkData.serverAdress + "items");
+    var request = new http.MultipartRequest("POST", postUri);
+    request.headers.addAll(networkData.getAuthHeader(_profileBloc.currentState.token));
+    request.fields['title'] = titleController.text;
+    request.files.add(new http.MultipartFile.fromBytes('file', await File.fromUri(galleryFile.uri).readAsBytes(), contentType: MediaType('image', 'jpeg')));
+
+    request.send().then((response) {
+      if (response.statusCode == 200) print("Uploaded!");
+    });
+  }
 
     var appBar = AppBar(
       title: Text(
