@@ -43,12 +43,12 @@ class AddCardPageState extends State<AddCardPage> {
 
     FormData formdata = new FormData();
 
-    //Upload Versuch mit dio
+    //Upload mit dio
     Future addItem() async {
       formdata.add("title", titleController.text);
       formdata.add("description", descriptionController.text);
       formdata.add(
-          "photos", UploadFileInfo(galleryFile, basename(galleryFile.path)));
+          "itemImage", UploadFileInfo(galleryFile, basename(galleryFile.path), contentType: ContentType('image', 'jpeg')));
       print(galleryFile.path);
       dio
           .post(networkData.serverAdress + "items",
@@ -60,56 +60,8 @@ class AddCardPageState extends State<AddCardPage> {
                   responseType: ResponseType.json // or ResponseType.JSON
                   ))
           .then((response) {
-            return FileBack.fromJson(json.decode(response.data)); 
-          })
-          .catchError((error) => print(error));
-    }
-
-    //anderer Upload Versuch
-    uploadFileUriMultipartRequest() async {
-      var postUri = Uri.parse(networkData.serverAdress + "items");
-      var request = new http.MultipartRequest("POST", postUri);
-      request.headers
-          .addAll(networkData.getAuthHeader(_profileBloc.currentState.token));
-      request.fields['title'] = titleController.text;
-      request.files.add(new http.MultipartFile.fromBytes(
-          'file', await File.fromUri(galleryFile.uri).readAsBytes(),
-          contentType: MediaType('image', 'jpeg')));
-
-      request.send().then((response) {
-        if (response.statusCode == 200) print("Uploaded!");
-      });
-    }
-
-    //dritter Versuch
-    upload(File imageFile) async {
-      print("try upload");
-      var stream =
-          new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
-      var length = await imageFile.length();
-
-      var uri = Uri.parse(networkData.serverAdress + "items");
-
-      var request = new http.MultipartRequest("POST", uri);
-
-      request.headers
-          .addAll(networkData.getAuthHeader(_profileBloc.currentState.token));
-      var multipartFile = new http.MultipartFile('file', stream, length,
-          filename: basename(imageFile.path));
-      //contentType: new MediaType('image', 'png'));
-
-      request.files.add(multipartFile);
-      var response = await request.send();
-      if (response.statusCode == 200) {
-        print(response.statusCode);
-      } else {
-        print(response.statusCode);
-        throw Exception();
-      }
-
-      response.stream.transform(utf8.decoder).listen((value) {
-        print(value);
-      });
+        return FileBack.fromJson(json.decode(response.data));
+      }).catchError((error) => print(error));
     }
 
     var appBar = AppBar(
