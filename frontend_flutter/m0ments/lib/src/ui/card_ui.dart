@@ -54,7 +54,7 @@ class CardUi extends StatelessWidget {
       semanticContainer: true,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Image.network(
-        _networkData.getServerAdress() + "surprised_pikatchu.png",
+        _networkData.getServerAdress() +m0mentCard.currentState.img,
         headers: _networkData.getAuthHeaderImageJpeg(_profileBloc.currentState.token),
         fit: BoxFit.fill,
       ),
