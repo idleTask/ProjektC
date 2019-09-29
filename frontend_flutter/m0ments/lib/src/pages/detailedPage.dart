@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:m0ments/src/blocs/m0mentCard_bloc.dart';
+import 'package:m0ments/src/blocs/profile_bloc.dart';
 import 'package:m0ments/src/models/m0mentCard_model.dart';
 import 'package:m0ments/src/resources/interfaceData.dart';
+import 'package:m0ments/src/resources/network_data.dart';
 import 'package:m0ments/src/ui/textcard.dart';
 
 class DetailedPage extends StatefulWidget {
@@ -21,6 +23,8 @@ class DetailedPageState extends State<DetailedPage> {
   Widget build(BuildContext context) {
     //CardListBloc _clBloc = BlocProvider.of<CardListBloc>(context);
     M0mentCardBloc bloc = widget.bloc;
+    ProfileBloc _profileBloc = BlocProvider.of<ProfileBloc>(context);
+    NetworkData _networkData = NetworkData();
 
     print("detailedPage:");
     print(bloc.currentState);
@@ -33,8 +37,10 @@ class DetailedPageState extends State<DetailedPage> {
           child: Card(
             semanticContainer: true,
             clipBehavior: Clip.antiAliasWithSaveLayer,
-            child: Image.asset(
-              state.img,
+            child: Image.network(
+              _networkData.getServerAdress() + bloc.currentState.getImg(),
+              headers: _networkData
+                  .getAuthHeaderImageJpeg(_profileBloc.currentState.token),
               fit: BoxFit.fill,
             ),
             shape: RoundedRectangleBorder(
@@ -46,10 +52,8 @@ class DetailedPageState extends State<DetailedPage> {
       },
     );
 
-    var renderDescription = TextCard(
-      bloc.currentState.getDescr()
-    );
-    
+    var renderDescription = TextCard(bloc.currentState.getDescr());
+
     var renderLikes = BlocBuilder(
       bloc: bloc,
       builder: (context, M0mentCard state) {

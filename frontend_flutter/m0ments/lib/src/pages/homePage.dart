@@ -43,6 +43,7 @@ class HomePageState extends State<HomePage> {
         print("refresh Ok");
         return Items.fromJson(json.decode(response.body));
       } else {
+        print(response.statusCode);
         // If that response was not OK, throw an error.
         throw Exception();
       }
@@ -60,8 +61,7 @@ class HomePageState extends State<HomePage> {
           tempBloc.currentState.userId = result.items[i].userId;
           tempBloc.currentState.title = result.items[i].title;
           tempBloc.currentState.descr = result.items[i].description;
-          //TODO: Bilder hinzufügen!
-          //tempBloc.currentState.img = result.items[i].itemImage;
+          tempBloc.currentState.img = result.items[i].itemImage;
           _clBloc.onAddCard(tempBloc);
         }
       });
