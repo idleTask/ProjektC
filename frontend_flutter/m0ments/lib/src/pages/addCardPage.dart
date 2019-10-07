@@ -37,6 +37,62 @@ class AddCardPageState extends State<AddCardPage> {
     M0mentCardBloc _bloc = new M0mentCardBloc();
     ProfileBloc _profileBloc = BlocProvider.of<ProfileBloc>(context);
 
+    void _uploadFailedAlert() {
+      // flutter defined function
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            backgroundColor: _interfaceData.getAppBarBackgroundColor(),
+            title: new Text(
+              "Upload failed",
+              style: TextStyle(
+                  color: _interfaceData.getContainerColor(), fontSize: 18),
+            ),
+            content: new Text(
+              "Please check your internet connection and try again.",
+              style: TextStyle(
+                  color: _interfaceData.getContainerColor(), fontSize: 18),
+            ),
+            actions: <Widget>[
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30.0, 10, 30.0, 10),
+                      child: RaisedButton(
+                        elevation: 0,
+                        highlightElevation: 0,
+                        color: _interfaceData.getAppBarBackgroundColor(),
+                        highlightColor: Theme.of(context).highlightColor,
+                        shape: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: _interfaceData.getAppBarTextColor(),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(26.0, 16, 26.0, 16),
+                          child: Text(
+                            "Ok",
+                            style: TextStyle(
+                                color: _interfaceData.getContainerColor(),
+                                fontSize: 18),
+                          ),
+                        ),
+                      ),
+                    )
+                  ]),
+            ],
+          );
+        },
+      );
+    }
+
     Dio dio = new Dio();
     dio.options.headers =
         networkData.getAuthHeader(_profileBloc.currentState.token);
@@ -61,7 +117,7 @@ class AddCardPageState extends State<AddCardPage> {
                   ))
           .then((response) {
         return FileBack.fromJson(json.decode(response.data));
-      }).catchError((error) => print(error));
+      }).catchError((error) => _uploadFailedAlert());
     }
 
     var appBar = AppBar(

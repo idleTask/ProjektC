@@ -53,7 +53,7 @@ class DetailedPageState extends State<DetailedPage> {
     );
 
     var renderDescription = TextCard(bloc.currentState.getDescr());
-
+/*
     var renderLikes = BlocBuilder(
       bloc: bloc,
       builder: (context, M0mentCard state) {
@@ -120,7 +120,7 @@ class DetailedPageState extends State<DetailedPage> {
         );
       },
     );
-
+*/
     var renderAppBar = AppBar(
       title: Text(
         bloc.currentState.getTitle(),
@@ -146,7 +146,7 @@ class DetailedPageState extends State<DetailedPage> {
     var renderBody = ListView(
       children: <Widget>[
         renderCard,
-        renderLikes,
+        //renderLikes,
         renderDescription,
       ],
     );

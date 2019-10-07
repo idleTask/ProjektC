@@ -30,6 +30,62 @@ class HomePageState extends State<HomePage> {
     CardListBloc _clBloc = BlocProvider.of<CardListBloc>(context);
     ProfileBloc _profileBloc = BlocProvider.of<ProfileBloc>(context);
 
+    void _loadingFailedAlert() {
+      // flutter defined function
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            backgroundColor: _interfaceData.getAppBarBackgroundColor(),
+            title: new Text(
+              "Loading posts failed",
+              style: TextStyle(
+                  color: _interfaceData.getContainerColor(), fontSize: 18),
+            ),
+            content: new Text(
+              "Please check your internet connection and try again.",
+              style: TextStyle(
+                  color: _interfaceData.getContainerColor(), fontSize: 18),
+            ),
+            actions: <Widget>[
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(30.0, 10, 30.0, 10),
+                      child: RaisedButton(
+                        elevation: 0,
+                        highlightElevation: 0,
+                        color: _interfaceData.getAppBarBackgroundColor(),
+                        highlightColor: Theme.of(context).highlightColor,
+                        shape: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            color: _interfaceData.getAppBarTextColor(),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(26.0, 16, 26.0, 16),
+                          child: Text(
+                            "Ok",
+                            style: TextStyle(
+                                color: _interfaceData.getContainerColor(),
+                                fontSize: 18),
+                          ),
+                        ),
+                      ),
+                    )
+                  ]),
+            ],
+          );
+        },
+      );
+    }
+
     //Refresh Indicator
     final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
         new GlobalKey<RefreshIndicatorState>();
@@ -45,7 +101,7 @@ class HomePageState extends State<HomePage> {
       } else {
         print(response.statusCode);
         // If that response was not OK, throw an error.
-        throw Exception();
+        _loadingFailedAlert();
       }
     }
 

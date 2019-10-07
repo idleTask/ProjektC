@@ -28,7 +28,7 @@ class DrawerUi extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => ProfilePage()),
                   );
                 }),
-            ListTile(
+            /* ListTile(
               leading: Icon(Icons.photo),
               title: _interfaceData.coloredText('My Posts'),
               onTap: () {
@@ -37,7 +37,7 @@ class DrawerUi extends StatelessWidget {
                     MaterialPageRoute(
                         builder: (context) => ProfileItemsPage()));
               },
-            ),
+            ),*/
             ListTile(
               leading: Icon(Icons.info),
               title: _interfaceData.coloredText('Impressum'),
