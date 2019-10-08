@@ -1,0 +1,6 @@
+
+function onLogout() {
+
+document.cookie = "";
+
+}

@@ -35,11 +35,59 @@ body {
 	
 	
 }
+.Sidebutton2:hover {
+  background-color: #FFFFF; /* Green */
+  color: white;
+}
 
 #openNav {
 	position: fixed;
 	
 	
+}
+
+
+.logoutbtn {
+	background-color: #77b55a; 
+	box-shadow: 0px 10px 14px -7px #3e7327;
+	background:linear-gradient(to bottom, #77b55a 5%, #72b352 100%);
+	border-radius:4px;
+	border:1px solid #4b8f29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:6px 12px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #5b8a3c;
+	
+}
+
+  
+ 
+
+}
+.logoutbtn:hover {
+  background-color: #4CAF50; 
+  color: white;
+}
+
+.navi {
+	box-shadow:inset 0px 34px 0px -15px #b54b3a;
+	background-color:#a73f2d;
+	border:1px solid #241d13;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:9px 23px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #7a2a1d;
+	width: 50%;
 }
 
 
@@ -51,7 +99,8 @@ body {
 }
 
 #name {
-	color: #e57373 
+	color: #e57373 ;
+	text-decoration: none;
 }
 #images {
 	
@@ -187,7 +236,7 @@ body {
 
 
 
-/* registration/Login */
+
 
 /* REGISTRATION/LOGIN */
 
@@ -226,7 +275,10 @@ body {
 	margin-left: 55px;
 	border-radius: 14px;
 }
-
+.formbtn:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
 
 #rcorners1 {
   border-radius: 25px;
