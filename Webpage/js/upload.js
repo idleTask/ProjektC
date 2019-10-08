@@ -17,7 +17,7 @@ function onUploadSubmit() {
 	formData.append('description', description);
 	formData.append('itemImage', $('#file')[0].files[0]);
 	$.ajax({
-		url: url + port + "/items", 					// Request URL							//!! Fehlt noch !!
+		url: url + port + "/items", 					// Request URL							
 		type: "POST",            	// Request Type	
 		data: formData, 	// Data
 		contentType: false,       	// Content     
@@ -28,7 +28,7 @@ function onUploadSubmit() {
 		crossDomain: true,
 		success: function (data)   	//  function called when succeded
 		{
-			console.log('success');
+			console.log('upload success');
 			$('#loading').hide();
 			$("#message").html(data);
 			window.location.href = 'Homepage.html';
@@ -86,7 +86,7 @@ function getAllItems() {
 	var x = document.cookie;
 	var jwtString = getCookie('jwt');
 	$.ajax({
-		url: url + port + "/items", 					// Request URL							//!! Fehlt noch !!
+		url: url + port + "/items", 					// Request URL							
 		type: "get",
 		headers: {
 			"Authorization": jwtString,
@@ -94,7 +94,7 @@ function getAllItems() {
 		dataType: 'json',
 		success: function (data)   	//  function called when succeded
 		{
-			console.log('success');
+			console.log('getAllItems');
 			$('#loading').hide();
 			$("#message").html(data);
 			displayItems(data);
@@ -109,16 +109,26 @@ function getAllItems() {
 	});
 }
 
+
+
+
+
+
 $(document).ready(function () {
+	
+	
 	getAllItems();
-});
+	
+	});
 
 function displayItems(data) {
+
+	
 	var jwtString = getCookie('jwt');
 	var items = data.items;
 	items.forEach(function (item, index) {
 		$.ajax({
-			url: url + port + '/' + item.itemImage, 					// Request URL							//!! Fehlt noch !!
+			url: url + port + '/' + item.itemImage, 					// Request URL							
 			type: "get",
 			contentType: 'image/png',
 			headers: {
@@ -127,7 +137,7 @@ function displayItems(data) {
 			mimeType: "text/plain; charset=x-user-defined",
 			success: function (data)   	//  function called when succeded
 			{
-				console.log('success');
+				console.log('display success');
 				var base64Image = base64Encode(data);
 				$('#images').append("<div class=images><img class= 'displayImages' src='data:image;base64," + base64Image + "' onclick='openModal(id)' height='200' width='200' id='" + index + "'></div>");
 			},
@@ -139,6 +149,7 @@ function displayItems(data) {
 			}
 		});
 	});
+
 }
 
 function base64Encode(str) {

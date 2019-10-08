@@ -1,21 +1,24 @@
+
+
 function onLogin() {
 	var password, email, data;
 
 	password = document.getElementById('passwordLogin');
 	email = document.getElementById('emailLogin');
-
+	
 	data = {
 		"password": password.value,
 		"email": email.value
 	}
 	console.log(data);
 	$.ajax({
-		url: url + port + "/user/login", 					// Request URL							//!! Fehlt noch !!
+		url: url + port + "/user/login", 					// Request URL							
 		type: "post",
 		data: data,
 		success: function (data)   	//  function called when succeded
 		{
-			console.log('success');
+			
+			console.log('loggedIn');
 			console.log(data);
 			jwt = data.token;
 			jwtString = "Bearer " + jwt;
@@ -45,12 +48,12 @@ function onRegister() {
 	}
 
 	$.ajax({
-		url: url + port + "/user/signup", 					// Request URL							//!! Fehlt noch !!
+		url: url + port + "/user/signup", 					// Request URL							
 		type: "post",
 		data: data,
 		success: function (data)   	//  function called when succeded
 		{
-			console.log('success');
+			console.log('Register Success');
 			console.log(data);
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
