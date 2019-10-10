@@ -8,6 +8,6 @@ class CardListState {
   CardListState(this.cardList);
 
   factory CardListState.initial() {
-    return CardListState._()..cardList = [] ..count;
+    return CardListState._()..cardList = [] ..count = 0;
   }
 }

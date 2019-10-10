@@ -52,7 +52,15 @@ class DetailedPageState extends State<DetailedPage> {
       },
     );
 
-    var renderDescription = TextCard(bloc.currentState.getDescr());
+    Widget renderDescription() {
+      print(bloc.currentState.getDescr());
+      return Container(
+        child: bloc.currentState.getDescr() == ""
+            ? Container()
+            : TextCard(bloc.currentState.getDescr()),
+      );
+    }
+
 /*
     var renderLikes = BlocBuilder(
       bloc: bloc,
@@ -147,7 +155,7 @@ class DetailedPageState extends State<DetailedPage> {
       children: <Widget>[
         renderCard,
         //renderLikes,
-        renderDescription,
+        renderDescription(),
       ],
     );
 
