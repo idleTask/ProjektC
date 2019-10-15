@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head> 
+	<meta charset= "utf-8">
+	<meta name="description" content="Projekt C">
+	<meta name="keywords" content="m0ments">
+	<meta name="author" content=Joel E.">
+	
+	<title> m0ments</title>
+	<link rel="stylesheet" href=css/stylesheet.css>
+	
+</head>
+
+<body>
+<!-- -->
+<div class="toggleButton" id="openNav">
+  <button class="Sidebutton2" onclick="togglebar()">&#9776;</button>
+  
+
+<div class="Sidebar" id="sidebar" >
+  
+  
+	<!-- <a href="Homepage.html" class="navi">Home</a>  </br> -->
+		<a href="Register-loginpage.html" class="navi">Register/Login</a>  </br>
+		<a href="Upload.html" class="navi">Upload</a>  </br>  </br></br>
+	<form class="form-logout" role="form">
+		<input type="submit" value="Logout" id="logout" onclick="onLogout()" class="logoutbtn">
+	</form>
+</div>
+</div>
+
+<!-- -->
+<div class="main">
+	  <h1> <a id="name" href="Homepage.html">M0ments</a></h1>
+	  <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+
+
+<div class= "uploadwindow">
+
+
+
+<h2>Upload </h2>
+<hr id="line">
+
+<form id="uploadimage" action="" method="post" enctype="multipart/form-data">
+	<div id="selectImage" style="margin-left: 10px">
+		<p>Title</p>
+		<input id="title" class="uploadfield" type="text"></input>
+		<p>Description:</p>
+		<textarea class="uploadfield" id="description"></textarea>
+		<p>Select Your Image</p>
+		<input type="file" name="file" id="file" required />
+		<button type="button" class="formbtn" onclick="onUploadSubmit()">Upload!</button> 
+	</div>
+
+	<div id="image_preview"><img id="preview" src="" /></div>
+	<div id="selectImage">
+
+</form>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<script language="javascript" type="text/javascript" src="js/upload.js"></script>
+<script language="javascript" type="text/javascript" src="js/registerLogin.js"></script>
+<script language="javascript" type="text/javascript" src="js/logout.js"></script>
+
+
+
+
+
+
+
+<script language="javascript" type="text/javascript" src="js/toggleSidebar.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="Projekt C">
+	<meta name="keywords" content="m0ments">
+	<meta name="author" content=Joel E.">
+
+	<title> Register/Login</title>
+	<link rel="stylesheet" href=css/stylesheet.css> <script type="text/javascript"
+		src="https://code.jquery.com/jquery-latest.min.js">
+		</script>
+
+</head>
+
+<body>
+	<!-- -->
+	<div class="toggleButton" id="openNav">
+		<button class="Sidebutton2" onclick="togglebar()">&#9776;</button>
+
+
+		<div class="Sidebar" id="sidebar" >
+  
+  
+	<!-- <a href="Homepage.html" class="navi">Home</a>  </br> -->
+		<a href="Register-loginpage.html" class="navi">Register/Login</a>  </br>
+		<a href="Upload.html" class="navi">Upload</a>  </br>  </br></br>
+		<form class="form-logout" role="form">
+			<input type="submit" value="Logout" id="logout" onclick="onLogout()" class="logoutbtn">
+		</form>
+</div>
+</div>
+	<!-- -->
+
+	<div class="main">
+
+
+
+		<h1> <a id="name" href="Homepage.html">M0ments</a></h1>
+
+
+
+
+
+
+		<!--REGISTERFORM/ LOGINFORM-->
+		<div class="LoginFORM">
+
+			<h2>LOGIN: </h2></br>
+			<input type="text" class="formfield" id="emailLogin" placeholder="enter your email" ></br>
+			<input type="password" id="passwordLogin" class="formfield" placeholder="enter your password"></br>
+			<button id="loginButton"  class="formbtn" onclick="onLogin()">Login</button>
+			</br></br>
+
+		</div>
+
+
+
+		<div class="LoginFORM" </div> <h2> REGISTER:</h2> </br>
+			<input type="text" username="user" id="nameRegister" class="formfield" placeholder="enter your username"></br>
+			<input type="text" email="email" id="emailRegister" class="formfield" placeholder="enter your email"></br>
+			<input type="password" passwort="pw" id="passwordRegister" class="formfield" placeholder="enter your password"></br>
+			<!-- <input type="text" passwort="pw" id="button" placeholder="confirm your password"> -->
+			<button id="registerButton" class="formbtn" onclick="onRegister()">Register</button>
+			</br></br>
+
+		</div>
+	</div />
+
+
+	<script language="javascript" type="text/javascript" src="js/logout.js"></script>
+	<script language="javascript" type="text/javascript" src="js/toggleSidebar.js"></script>
+	<script language="javascript" type="text/javascript" src="js/upload.js"></script>
+	<script language="javascript" type="text/javascript" src="js/openModal.js"></script>
+	<script language="javascript" type="text/javascript" src="js/registerLogin.js"></script>
+</body>
+
+</html>
